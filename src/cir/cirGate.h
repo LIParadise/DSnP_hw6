@@ -29,7 +29,7 @@ public:
    virtual ~CirGate() {}
 
    // Basic access methods
-   string getTypeStr() const { return ""; }
+   virtual  string getTypeStr() const { return ""; }
    unsigned getLineNo() const { return 0; }
 
    // Printing functions
@@ -39,6 +39,9 @@ public:
    void reportFanout(int level) const;
 
 private:
+
+   CirGate* _parent1;
+   CirGate* _parent2;
 
 protected:
 

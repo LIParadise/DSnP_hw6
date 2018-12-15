@@ -174,11 +174,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 27 - ((14 * winheight(0) + 20) / 40)
+let s:l = 41 - ((28 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-27
+41
 normal! 0
 wincmd w
 argglobal
@@ -427,11 +427,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 149 - ((0 * winheight(0) + 20) / 40)
+let s:l = 51 - ((0 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-149
+51
 normal! 0
 wincmd w
 argglobal
@@ -547,14 +547,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 35 - ((19 * winheight(0) + 20) / 40)
+let s:l = 40 - ((31 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-35
+40
 normal! 0
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 77 + 79) / 159)
 exe 'vert 2resize ' . ((&columns * 81 + 79) / 159)
 tabedit src/cir/cirCmd.cpp
@@ -1058,7 +1057,7 @@ exe s:l
 normal! zt
 39
 normal! 0
-tabnext 2
+tabnext 1
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
