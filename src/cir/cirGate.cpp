@@ -48,12 +48,12 @@ CirGate::isInverted( size_t s ) const {
   return i;
 }
 
-bool
+void
 CirGate::setInvert( size_t& s) { 
   s = (s | 1);
 }
 
 CirGate*
-CirGate::getPtr( size_t s ){
+CirGate::getPtr( size_t s ) const{
   return reinterpret_cast< CirGate* > ( s & (~1) );
 }

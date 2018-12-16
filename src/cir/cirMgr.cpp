@@ -6,7 +6,10 @@
   Copyright    [ Copyleft(c) 2008-present LaDs(III), GIEE, NTU, Taiwan ]
 ****************************************************************************/
 
+#include <algorithm>
 #include <iostream>
+#include <iterator>
+#include <fstream>
 #include <sstream>
 #include <iomanip>
 #include <cstdio>
@@ -168,10 +171,53 @@ CirMgr::readCircuit(const string& fileName)
 
   for( int i = 0; i < MILOA[1]; ++i ) { // I
     getline( myfile, tmp_str );
-    LHS.insert( pair<int, CirGate*>
-        (stoi( tmp_str, tmp_str.size(), 10 ), nullptr ) );
+    PIGate* ptr = new PIGate();
+    int     id  = stoi( tmp_str, nullptr, 10 )/2;
+    lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
+    PIList.push_back( pair<int, CirGate*> ( id, ptr ) );
+
+  }
+  for( int i = 0; i < MILOA[2]; ++i ) { // L
+    getline( myfile, tmp_str );
+  }
+  for( int i = 0; i < MILOA[3]; ++i ) { // O
+    getline( myfile, tmp_str );
+    POGate* ptr = new POGate();
+    int     id  = stoi( tmp_str, nullptr, 10 )/2;
+    lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
+    POList.push_back( pair<int, CirGate*> ( id, ptr ) );
+  }
+  for( int i = 0; i < MILOA[4]; ++i ) { // A
+    getline( myfile, tmp_str );
+    stringstream ss ( tmp_str );
+    ss >> tmp_str;
+    lhsID.insert( pair< int, CirGate* > (
+          stoi( tmp_str, nullptr, 10) /2 ,
+          new AAGate(true) ) );
+
+    ss >> tmp_str;
+    rhsID.insert( pair< int, CirGate* > (
+          stoi( tmp_str, nullptr, 10) /2 ,
+          nullptr ) );
+    ss >> tmp_str;
+    rhsID.insert( pair< int, CirGate* > (
+          stoi( tmp_str, nullptr, 10) /2 ,
+          nullptr ) );
   }
 
+  FLList.clear();
+  UGList.clear();
+  Island.clear();
+
+  set_difference( lhsID.begin(), lhsID.end(), rhsID.begin(),
+      rhsID.end(), back_inserter(FLList), myPairIntCirGateCmp );
+
+  set_difference( rhsID.begin(), rhsID.end(), lhsID.begin(),
+      lhsID.end(), back_inserter(UGList), myPairIntCirGateCmp );
+
+  set_intersection( rhsID.begin(), rhsID.end(), lhsID.begin(),
+      lhsID.end(), back_inserter(Island), myPairIntCirGateCmp );
+  // Island have ( first == id ) and ( second == nullptr );
 
   return true;
 }
@@ -220,4 +266,11 @@ CirMgr::printFloatGates() const
 void
 CirMgr::writeAag(ostream& outfile) const
 {
+}
+
+bool
+myPairIntCirGateCmp(
+    const pair< int, CirGate* >& pair1,
+    const pair< int, CirGate* >& pair2 ) {
+  return pair1.first < pair2.first ;
 }

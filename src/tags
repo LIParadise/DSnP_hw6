@@ -4,6 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AAGate	cir/cirGate.h	/^    AAGate(): CirGate(), isDefined(true) {}$/;"	f	class:AAGate
+AAGate	cir/cirGate.h	/^    AAGate(bool boolean): CirGate(), isDefined(boolean) {}$/;"	f	class:AAGate
+AAGate	cir/cirGate.h	/^class AAGate : public CirGate {$/;"	c
 AIG_GATE	cir/cirDef.h	/^   AIG_GATE   = 3,$/;"	e	enum:GateType
 CANNOT_INVERTED	cir/cirMgr.cpp	/^   CANNOT_INVERTED,$/;"	e	enum:CirParseError	file:
 CIRCMDTOT	cir/cirCmd.cpp	/^   CIRCMDTOT$/;"	e	enum:CirCmdState	file:
@@ -15,7 +18,7 @@ CIR_GATE_H	cir/cirGate.h	10;"	d
 CIR_MGR_H	cir/cirMgr.h	10;"	d
 CONST_GATE	cir/cirDef.h	/^   CONST_GATE = 4,$/;"	e	enum:GateType
 CirCmdState	cir/cirCmd.cpp	/^enum CirCmdState$/;"	g	file:
-CirGate	cir/cirGate.h	/^   CirGate() {}$/;"	f	class:CirGate
+CirGate	cir/cirGate.h	/^    CirGate() {}$/;"	f	class:CirGate
 CirGate	cir/cirGate.h	/^class CirGate$/;"	c
 CirGateCmd	cir/cirCmd.h	/^CmdClass(CirGateCmd);$/;"	v
 CirMgr	cir/cirMgr.h	/^   CirMgr(){}$/;"	f	class:CirMgr
@@ -26,6 +29,7 @@ CirReadCmd	cir/cirCmd.h	/^CmdClass(CirReadCmd);$/;"	v
 CirWriteCmd	cir/cirCmd.h	/^CmdClass(CirWriteCmd);$/;"	v
 DUMMY_END	cir/cirMgr.cpp	/^   DUMMY_END$/;"	e	enum:CirParseError	file:
 EXTRA_SPACE	cir/cirMgr.cpp	/^   EXTRA_SPACE,$/;"	e	enum:CirParseError	file:
+FLList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> FLList;$/;"	m	class:CirMgr
 GateList	cir/cirDef.h	/^typedef vector<CirGate*>           GateList;$/;"	t
 GateType	cir/cirDef.h	/^enum GateType$/;"	g
 ILLEGAL_IDENTIFIER	cir/cirMgr.cpp	/^   ILLEGAL_IDENTIFIER,$/;"	e	enum:CirParseError	file:
@@ -34,7 +38,9 @@ ILLEGAL_SYMBOL_NAME	cir/cirMgr.cpp	/^   ILLEGAL_SYMBOL_NAME,$/;"	e	enum:CirParse
 ILLEGAL_SYMBOL_TYPE	cir/cirMgr.cpp	/^   ILLEGAL_SYMBOL_TYPE,$/;"	e	enum:CirParseError	file:
 ILLEGAL_WSPACE	cir/cirMgr.cpp	/^   ILLEGAL_WSPACE,$/;"	e	enum:CirParseError	file:
 IdList	cir/cirDef.h	/^typedef vector<unsigned>           IdList;$/;"	t
+Island	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> Island;$/;"	m	class:CirMgr
 MAX_LIT_ID	cir/cirMgr.cpp	/^   MAX_LIT_ID,$/;"	e	enum:CirParseError	file:
+MILOA	cir/cirMgr.h	/^   vector< int> MILOA;$/;"	m	class:CirMgr
 MISSING_DEF	cir/cirMgr.cpp	/^   MISSING_DEF,$/;"	e	enum:CirParseError	file:
 MISSING_IDENTIFIER	cir/cirMgr.cpp	/^   MISSING_IDENTIFIER,$/;"	e	enum:CirParseError	file:
 MISSING_NEWLINE	cir/cirMgr.cpp	/^   MISSING_NEWLINE,$/;"	e	enum:CirParseError	file:
@@ -47,7 +53,13 @@ MyUsage	util/myUsage.h	/^   MyUsage() { reset(); }$/;"	f	class:MyUsage
 MyUsage	util/myUsage.h	/^class MyUsage$/;"	c
 NUM_TOO_BIG	cir/cirMgr.cpp	/^   NUM_TOO_BIG,$/;"	e	enum:CirParseError	file:
 NUM_TOO_SMALL	cir/cirMgr.cpp	/^   NUM_TOO_SMALL,$/;"	e	enum:CirParseError	file:
+PIGate	cir/cirGate.h	/^    PIGate(): CirGate(), _symbolMsg("") {}$/;"	f	class:PIGate
+PIGate	cir/cirGate.h	/^class PIGate : public CirGate {$/;"	c
+PIList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> PIList;$/;"	m	class:CirMgr
 PI_GATE	cir/cirDef.h	/^   PI_GATE    = 1,$/;"	e	enum:GateType
+POGate	cir/cirGate.h	/^    POGate(): CirGate(), _symbolMsg("") {}$/;"	f	class:POGate
+POGate	cir/cirGate.h	/^class POGate : public CirGate {$/;"	c
+POList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> POList;$/;"	m	class:CirMgr
 PO_GATE	cir/cirDef.h	/^   PO_GATE    = 2,$/;"	e	enum:GateType
 REDEF_CONST	cir/cirMgr.cpp	/^   REDEF_CONST,$/;"	e	enum:CirParseError	file:
 REDEF_GATE	cir/cirMgr.cpp	/^   REDEF_GATE,$/;"	e	enum:CirParseError	file:
@@ -57,12 +69,19 @@ RandomNumGen	util/rnGen.h	/^      RandomNumGen() { my_srandom(getpid()); }$/;"	f
 RandomNumGen	util/rnGen.h	/^      RandomNumGen(unsigned seed) { my_srandom(seed); }$/;"	f	class:RandomNumGen
 RandomNumGen	util/rnGen.h	/^class RandomNumGen$/;"	c
 TOT_GATE	cir/cirDef.h	/^   TOT_GATE$/;"	e	enum:GateType
+UGList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> UGList;$/;"	m	class:CirMgr
 UNDEF_GATE	cir/cirDef.h	/^   UNDEF_GATE = 0,$/;"	e	enum:GateType
 UTIL_H	util/util.h	9;"	d
+_child	cir/cirGate.h	/^    vector< size_t > _child;$/;"	m	class:CirGate
 _currentMem	util/myUsage.h	/^   double     _currentMem;$/;"	m	class:MyUsage
 _currentTick	util/myUsage.h	/^   double     _currentTick;$/;"	m	class:MyUsage
+_gateID	cir/cirGate.h	/^    unsigned         _gateID;$/;"	m	class:CirGate
 _initMem	util/myUsage.h	/^   double     _initMem;$/;"	m	class:MyUsage
+_lineNo	cir/cirGate.h	/^    unsigned         _lineNo;$/;"	m	class:CirGate
+_parent	cir/cirGate.h	/^    vector< size_t > _parent;$/;"	m	class:CirGate
 _periodUsedTime	util/myUsage.h	/^   double     _periodUsedTime;$/;"	m	class:MyUsage
+_symbolMsg	cir/cirGate.h	/^    string _symbolMsg;$/;"	m	class:PIGate
+_symbolMsg	cir/cirGate.h	/^    string _symbolMsg;$/;"	m	class:POGate
 _totalUsedTime	util/myUsage.h	/^   double     _totalUsedTime;$/;"	m	class:MyUsage
 buf	cir/cirMgr.cpp	/^static char buf[1024];$/;"	v	file:
 checkMem	util/myUsage.h	/^   double checkMem() const {$/;"	f	class:MyUsage
@@ -78,20 +97,29 @@ exec	cir/cirCmd.cpp	/^CirPrintCmd::exec(const string& option)$/;"	f	class:CirPri
 exec	cir/cirCmd.cpp	/^CirReadCmd::exec(const string& option)$/;"	f	class:CirReadCmd
 exec	cir/cirCmd.cpp	/^CirWriteCmd::exec(const string& option)$/;"	f	class:CirWriteCmd
 getGate	cir/cirMgr.h	/^   CirGate* getGate(unsigned gid) const { return 0; }$/;"	f	class:CirMgr
+getGateID	cir/cirGate.h	/^    unsigned getGateID() const { return _gateID; }$/;"	f	class:CirGate
 getHashSize	util/util.cpp	/^size_t getHashSize(size_t s) {$/;"	f
-getLineNo	cir/cirGate.h	/^   unsigned getLineNo() const { return 0; }$/;"	f	class:CirGate
-getTypeStr	cir/cirGate.h	/^   string getTypeStr() const { return ""; }$/;"	f	class:CirGate
+getLineNo	cir/cirGate.h	/^    unsigned getLineNo() const { return _lineNo; }$/;"	f	class:CirGate
+getPtr	cir/cirGate.cpp	/^CirGate::getPtr( size_t s ) const{$/;"	f	class:CirGate
+getTypeStr	cir/cirGate.h	/^    virtual  string getTypeStr() const { return "base"; }$/;"	f	class:CirGate
+getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PI"; }$/;"	f	class:PIGate
+getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PO"; }$/;"	f	class:POGate
+getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const {$/;"	f	class:AAGate
 help	cir/cirCmd.cpp	/^CirGateCmd::help() const$/;"	f	class:CirGateCmd
 help	cir/cirCmd.cpp	/^CirPrintCmd::help() const$/;"	f	class:CirPrintCmd
 help	cir/cirCmd.cpp	/^CirReadCmd::help() const$/;"	f	class:CirReadCmd
 help	cir/cirCmd.cpp	/^CirWriteCmd::help() const$/;"	f	class:CirWriteCmd
 initCirCmd	cir/cirCmd.cpp	/^initCirCmd()$/;"	f
+isDefined	cir/cirGate.h	/^    bool isDefined;$/;"	m	class:AAGate
+isInverted	cir/cirGate.cpp	/^CirGate::isInverted( size_t s ) const {$/;"	f	class:CirGate
 isValidVarName	util/myString.cpp	/^isValidVarName(const string& str)$/;"	f
+lhsID	cir/cirMgr.h	/^   map< int, CirGate*>  lhsID;$/;"	m	class:CirMgr
 lineNo	cir/cirMgr.cpp	/^static unsigned lineNo = 0;  \/\/ in printint, lineNo needs to ++$/;"	v	file:
 listDir	util/util.cpp	/^int listDir$/;"	f
 main	main/main.cpp	/^main(int argc, char** argv)$/;"	f
 myGetChar	util/myGetChar.cpp	/^char myGetChar()$/;"	f
 myGetChar	util/myGetChar.cpp	/^char myGetChar(istream& istr)$/;"	f
+myPairIntCirGateCmp	cir/cirMgr.cpp	/^myPairIntCirGateCmp($/;"	f
 myStr2Int	util/myString.cpp	/^myStr2Int(const string& str, int& num)$/;"	f
 myStrGetTok	util/myString.cpp	/^myStrGetTok(const string& str, string& tok, size_t pos = 0,$/;"	f
 myStrNCmp	util/myString.cpp	/^myStrNCmp(const string& s1, const string& s2, unsigned n)$/;"	f
@@ -114,8 +142,12 @@ reportFanout	cir/cirGate.cpp	/^CirGate::reportFanout(int level) const$/;"	f	clas
 reportGate	cir/cirGate.cpp	/^CirGate::reportGate() const$/;"	f	class:CirGate
 reset	util/myUsage.h	/^   void reset() {$/;"	f	class:MyUsage
 reset_keypress	util/myGetChar.cpp	/^static void reset_keypress(void)$/;"	f	file:
+rhsID	cir/cirMgr.h	/^   map< int, CirGate*>  rhsID;$/;"	m	class:CirMgr
+setDefined	cir/cirGate.h	/^    void setDefined() { isDefined = true; }$/;"	f	class:AAGate
+setInvert	cir/cirGate.cpp	/^CirGate::setInvert( size_t& s) { $/;"	f	class:CirGate
 setMemUsage	util/myUsage.h	/^   void setMemUsage() { _currentMem = checkMem() - _initMem; }$/;"	f	class:MyUsage
 setTimeUsage	util/myUsage.h	/^   void setTimeUsage() {$/;"	f	class:MyUsage
+setUNDEF	cir/cirGate.h	/^    void setUNDEF() { isDefined = false; }$/;"	f	class:AAGate
 set_keypress	util/myGetChar.cpp	/^static void set_keypress(void)$/;"	f	file:
 stored_settings	util/myGetChar.cpp	/^static struct termios stored_settings;$/;"	v	typeref:struct:termios	file:
 usage	cir/cirCmd.cpp	/^CirGateCmd::usage(ostream& os) const$/;"	f	class:CirGateCmd
@@ -124,5 +156,5 @@ usage	cir/cirCmd.cpp	/^CirReadCmd::usage(ostream& os) const$/;"	f	class:CirReadC
 usage	cir/cirCmd.cpp	/^CirWriteCmd::usage(ostream& os) const$/;"	f	class:CirWriteCmd
 usage	main/main.cpp	/^usage()$/;"	f	file:
 writeAag	cir/cirMgr.cpp	/^CirMgr::writeAag(ostream& outfile) const$/;"	f	class:CirMgr
-~CirGate	cir/cirGate.h	/^   virtual ~CirGate() {}$/;"	f	class:CirGate
+~CirGate	cir/cirGate.h	/^    virtual ~CirGate() {}$/;"	f	class:CirGate
 ~CirMgr	cir/cirMgr.h	/^   ~CirMgr() {}$/;"	f	class:CirMgr
