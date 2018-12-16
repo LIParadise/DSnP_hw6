@@ -208,6 +208,11 @@ CirMgr::readCircuit(const string& fileName)
   FLList.clear();
   UGList.clear();
   Island.clear();
+  GateList.clear();
+  FLList.reserve( 10);
+  UGList.reserve( 10);
+  Island.reserve( 10);
+  GateList.reserve( (lhsID.size() + rhsID.size() ) / 2 );
 
   set_difference( lhsID.begin(), lhsID.end(), rhsID.begin(),
       rhsID.end(), back_inserter(FLList), myPairIntCirGateCmp );
@@ -218,6 +223,20 @@ CirMgr::readCircuit(const string& fileName)
   set_intersection( rhsID.begin(), rhsID.end(), lhsID.begin(),
       lhsID.end(), back_inserter(Island), myPairIntCirGateCmp );
   // Island have ( first == id ) and ( second == nullptr );
+
+  set_union( lhsID.begin(), lhsID.end(), rhsID.begin(),
+      rhsID.end(), back_inserter(GateList), myPairIntCirGateCmp );
+  // lhs first, thus we could copy constructed POGate,
+  // PIGate, and AAGate pointers to the union.
+
+  for_each( GateList.begin(), GateList.end(),
+           [] ( pair< int, CirGate* >& p) -> pair<int, CirGate*> {
+             if( p.second == nullptr )
+               return pair< int, CirGate*>
+                 ( p.first, new AAGate( false ) );
+             else
+               return p;
+           } );
 
   return true;
 }
@@ -270,7 +289,7 @@ CirMgr::writeAag(ostream& outfile) const
 
 bool
 myPairIntCirGateCmp(
-    const pair< int, CirGate* >& pair1,
-    const pair< int, CirGate* >& pair2 ) {
+  const pair< int, CirGate* >& pair1,
+  const pair< int, CirGate* >& pair2 ) {
   return pair1.first < pair2.first ;
 }

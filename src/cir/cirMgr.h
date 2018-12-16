@@ -53,6 +53,7 @@ private:
    vector< pair< int, CirGate*>> FLList;
    vector< pair< int, CirGate*>> UGList;
    vector< pair< int, CirGate*>> Island;
+   vector< pair< int, CirGate*>> GateList;
    vector< int> MILOA;
    // TODO, shall have a field remaining symbol msg.
 

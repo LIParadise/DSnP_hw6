@@ -31,6 +31,7 @@ DUMMY_END	cir/cirMgr.cpp	/^   DUMMY_END$/;"	e	enum:CirParseError	file:
 EXTRA_SPACE	cir/cirMgr.cpp	/^   EXTRA_SPACE,$/;"	e	enum:CirParseError	file:
 FLList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> FLList;$/;"	m	class:CirMgr
 GateList	cir/cirDef.h	/^typedef vector<CirGate*>           GateList;$/;"	t
+GateList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> GateList;$/;"	m	class:CirMgr
 GateType	cir/cirDef.h	/^enum GateType$/;"	g
 ILLEGAL_IDENTIFIER	cir/cirMgr.cpp	/^   ILLEGAL_IDENTIFIER,$/;"	e	enum:CirParseError	file:
 ILLEGAL_NUM	cir/cirMgr.cpp	/^   ILLEGAL_NUM,$/;"	e	enum:CirParseError	file:
