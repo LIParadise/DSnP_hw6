@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdarg.h>
 #include <cassert>
+#include <string.h> // ffsll
 #include "cirGate.h"
 #include "cirMgr.h"
 #include "util.h"
@@ -41,3 +42,18 @@ CirGate::reportFanout(int level) const
    assert (level >= 0);
 }
 
+bool
+CirGate::isInverted( size_t s ) const {
+  int i = (s & 1);
+  return i;
+}
+
+bool
+CirGate::setInvert( size_t& s) { 
+  s = (s | 1);
+}
+
+CirGate*
+CirGate::getPtr( size_t s ){
+  return reinterpret_cast< CirGate* > ( s & (~1) );
+}

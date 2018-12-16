@@ -174,11 +174,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 41 - ((28 * winheight(0) + 20) / 40)
+let s:l = 69 - ((24 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-41
+69
 normal! 0
 wincmd w
 argglobal
@@ -294,11 +294,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 12 - ((0 * winheight(0) + 20) / 40)
+let s:l = 55 - ((33 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-12
+55
 normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 80 + 79) / 159)
@@ -427,12 +427,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 51 - ((0 * winheight(0) + 20) / 40)
+let s:l = 180 - ((29 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-51
-normal! 0
+180
+normal! 022|
 wincmd w
 argglobal
 edit src/cir/cirMgr.h
@@ -547,12 +547,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 40 - ((31 * winheight(0) + 20) / 40)
+let s:l = 58 - ((36 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-40
-normal! 0
+58
+normal! 019|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 77 + 79) / 159)
 exe 'vert 2resize ' . ((&columns * 81 + 79) / 159)
@@ -680,12 +680,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 50 - ((2 * winheight(0) + 20) / 40)
+let s:l = 78 - ((3 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-50
-normal! 011|
+78
+normal! 07|
 wincmd w
 argglobal
 edit src/cir/cirCmd.h
@@ -927,11 +927,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 28 - ((27 * winheight(0) + 20) / 40)
+let s:l = 17 - ((16 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-28
+17
 normal! 0
 tabedit src/main/main.cpp
 set splitbelow splitright
@@ -1057,7 +1057,7 @@ exe s:l
 normal! zt
 39
 normal! 0
-tabnext 1
+tabnext 2
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

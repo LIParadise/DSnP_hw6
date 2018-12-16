@@ -13,6 +13,10 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <pair>
 
 using namespace std;
 
@@ -43,6 +47,15 @@ public:
    void writeAag(ostream&) const;
 
 private:
+
+   map< int, CirGate* > LHS;
+   map< int, CirGate* > RHS;
+   map< int, CirGate* > PO;
+   map< int, CirGate* > PI;
+   vector< pair< int, CirGate*>> floating;
+   vector< pair< int, CirGate*>> undefined;
+   vector< pair< int, CirGate*>> island;
+
 };
 
 #endif // CIR_MGR_H

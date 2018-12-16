@@ -29,8 +29,9 @@ public:
    virtual ~CirGate() {}
 
    // Basic access methods
-   virtual  string getTypeStr() const { return ""; }
-   unsigned getLineNo() const { return 0; }
+   virtual  string getTypeStr() const { return "base"; }
+   unsigned getLineNo() const { return _lineNo; }
+   unsigned getGateID() const { return _gateID; }
 
    // Printing functions
    virtual void printGate() const = 0;
@@ -40,11 +41,42 @@ public:
 
 private:
 
-   CirGate* _parent1;
-   CirGate* _parent2;
+   vector< size_t > _parent;
+   vector< size_t > _child;
+   unsigned         _lineNo;
+   unsigned         _gateID;
+
+   bool     isInverted( size_t  ) const ;
+   void     setInvert ( size_t& ) ;
+   CirGate* getPtr    ( size_t  ) const ;
 
 protected:
 
+};
+
+class POGate : public CirGate {
+  public:
+    POGate(): CirGate(), _symbolMsg("") {}
+    virtual string getTypeStr() const { return "PO"; }
+  private:
+    string _symbolMsg;
+};
+class PIGate : public CirGate {
+  public:
+    PIGate(): CirGate(), _symbolMsg("") {}
+    virtual string getTypeStr() const { return "PI"; }
+  private:
+    string _symbolMsg;
+};
+class AAGate : public CirGate {
+  public:
+    AAG(): CirGate(), isDefined(false) {}
+    virtual string getTypeStr() const {
+      return (  (isDefined)? "AAG" : "UNDEF" );
+    }
+    void setDefined() { isDefined = true; };
+  private:
+    bool isDefined;
 };
 
 #endif // CIR_GATE_H

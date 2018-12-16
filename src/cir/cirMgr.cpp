@@ -7,6 +7,7 @@
 ****************************************************************************/
 
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <cstdio>
 #include <ctype.h>
@@ -151,21 +152,42 @@ parseError(CirParseError err)
 bool
 CirMgr::readCircuit(const string& fileName)
 {
-   return true;
+  fstream myfile;
+  myfile.open( fileName, fstream::in );
+  string tmp_str;
+  MILOA.reserve(5);
+
+  getline( myfile, tmp_str ); // string; "aag MILOA";
+  stringstream tmp_sstr ( tmp_str );
+  tmp_sstr >> tmp_str; // "aag"
+  for( int i = 0; i < 5; ++i ){
+    int j = 0;
+    tmp_sstr >> j;
+    MILOA.push_back( j);
+  }
+
+  for( int i = 0; i < MILOA[1]; ++i ) { // I
+    getline( myfile, tmp_str );
+    LHS.insert( pair<int, CirGate*>
+        (stoi( tmp_str, tmp_str.size(), 10 ), nullptr ) );
+  }
+
+
+  return true;
 }
 
 /**********************************************************/
 /*   class CirMgr member functions for circuit printing   */
 /**********************************************************/
 /*********************
-Circuit Statistics
-==================
+  Circuit Statistics
+  ==================
   PI          20
   PO          12
   AIG        130
-------------------
+  ------------------
   Total      162
-*********************/
+ *********************/
 void
 CirMgr::printSummary() const
 {
@@ -179,15 +201,15 @@ CirMgr::printNetlist() const
 void
 CirMgr::printPIs() const
 {
-   cout << "PIs of the circuit:";
-   cout << endl;
+  cout << "PIs of the circuit:";
+  cout << endl;
 }
 
 void
 CirMgr::printPOs() const
 {
-   cout << "POs of the circuit:";
-   cout << endl;
+  cout << "POs of the circuit:";
+  cout << endl;
 }
 
 void
