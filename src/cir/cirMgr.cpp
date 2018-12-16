@@ -158,6 +158,8 @@ CirMgr::readCircuit(const string& fileName)
   fstream myfile;
   myfile.open( fileName, fstream::in );
   string tmp_str;
+  string tmp_str1, tmp_str2;
+  int    ss_pos = 0;
   MILOA.reserve(5);
 
   getline( myfile, tmp_str ); // string; "aag MILOA";
@@ -187,6 +189,7 @@ CirMgr::readCircuit(const string& fileName)
     lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
     POList.push_back( pair<int, CirGate*> ( id, ptr ) );
   }
+  ss_pos = myfile.tellg();
   for( int i = 0; i < MILOA[4]; ++i ) { // A
     getline( myfile, tmp_str );
     stringstream ss ( tmp_str );
@@ -237,6 +240,20 @@ CirMgr::readCircuit(const string& fileName)
              else
                return p;
            } );
+
+  myfile.clear();
+  myfile.seekg( ss_pos );
+  for( int i = 0; i < MILOA[4]; ++i ) { // A
+    getline( myfile, tmp_str );
+    stringstream ss ( tmp_str );
+    ss >> tmp_str >> tmp_str1 >> tmp_str2;
+    int gid = stoi( tmp_str, nullptr, 10 );
+    int id1 = stoi( tmp_str, nullptr, 10 );
+    int id2 = stoi( tmp_str, nullptr, 10 );
+    // aag(gid) is based on id1, id2.
+    // set id1 to have child gid.
+    // set id2 to have child gid.
+  }
 
   return true;
 }

@@ -73,13 +73,13 @@ TOT_GATE	cir/cirDef.h	/^   TOT_GATE$/;"	e	enum:GateType
 UGList	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> UGList;$/;"	m	class:CirMgr
 UNDEF_GATE	cir/cirDef.h	/^   UNDEF_GATE = 0,$/;"	e	enum:GateType
 UTIL_H	util/util.h	9;"	d
-_child	cir/cirGate.h	/^    vector< size_t > _child;$/;"	m	class:CirGate
+_child	cir/cirGate.h	/^    set< size_t >    _child;$/;"	m	class:CirGate
 _currentMem	util/myUsage.h	/^   double     _currentMem;$/;"	m	class:MyUsage
 _currentTick	util/myUsage.h	/^   double     _currentTick;$/;"	m	class:MyUsage
 _gateID	cir/cirGate.h	/^    unsigned         _gateID;$/;"	m	class:CirGate
 _initMem	util/myUsage.h	/^   double     _initMem;$/;"	m	class:MyUsage
 _lineNo	cir/cirGate.h	/^    unsigned         _lineNo;$/;"	m	class:CirGate
-_parent	cir/cirGate.h	/^    vector< size_t > _parent;$/;"	m	class:CirGate
+_parent	cir/cirGate.h	/^    set< size_t >    _parent;$/;"	m	class:CirGate
 _periodUsedTime	util/myUsage.h	/^   double     _periodUsedTime;$/;"	m	class:MyUsage
 _symbolMsg	cir/cirGate.h	/^    string _symbolMsg;$/;"	m	class:PIGate
 _symbolMsg	cir/cirGate.h	/^    string _symbolMsg;$/;"	m	class:POGate
@@ -97,6 +97,8 @@ exec	cir/cirCmd.cpp	/^CirGateCmd::exec(const string& option)$/;"	f	class:CirGate
 exec	cir/cirCmd.cpp	/^CirPrintCmd::exec(const string& option)$/;"	f	class:CirPrintCmd
 exec	cir/cirCmd.cpp	/^CirReadCmd::exec(const string& option)$/;"	f	class:CirReadCmd
 exec	cir/cirCmd.cpp	/^CirWriteCmd::exec(const string& option)$/;"	f	class:CirWriteCmd
+findChild	cir/cirGate.cpp	/^CirGate::findChild( size_t s ) const{$/;"	f	class:CirGate
+findParent	cir/cirGate.cpp	/^CirGate::findParent( size_t s ) const{$/;"	f	class:CirGate
 getGate	cir/cirMgr.h	/^   CirGate* getGate(unsigned gid) const { return 0; }$/;"	f	class:CirMgr
 getGateID	cir/cirGate.h	/^    unsigned getGateID() const { return _gateID; }$/;"	f	class:CirGate
 getHashSize	util/util.cpp	/^size_t getHashSize(size_t s) {$/;"	f
@@ -111,6 +113,8 @@ help	cir/cirCmd.cpp	/^CirPrintCmd::help() const$/;"	f	class:CirPrintCmd
 help	cir/cirCmd.cpp	/^CirReadCmd::help() const$/;"	f	class:CirReadCmd
 help	cir/cirCmd.cpp	/^CirWriteCmd::help() const$/;"	f	class:CirWriteCmd
 initCirCmd	cir/cirCmd.cpp	/^initCirCmd()$/;"	f
+insertChild	cir/cirGate.cpp	/^CirGate::insertChild( size_t s) {$/;"	f	class:CirGate
+insertParent	cir/cirGate.cpp	/^CirGate::insertParent( size_t s) {$/;"	f	class:CirGate
 isDefined	cir/cirGate.h	/^    bool isDefined;$/;"	m	class:AAGate
 isInverted	cir/cirGate.cpp	/^CirGate::isInverted( size_t s ) const {$/;"	f	class:CirGate
 isValidVarName	util/myString.cpp	/^isValidVarName(const string& str)$/;"	f
@@ -145,10 +149,12 @@ reset	util/myUsage.h	/^   void reset() {$/;"	f	class:MyUsage
 reset_keypress	util/myGetChar.cpp	/^static void reset_keypress(void)$/;"	f	file:
 rhsID	cir/cirMgr.h	/^   map< int, CirGate*>  rhsID;$/;"	m	class:CirMgr
 setDefined	cir/cirGate.h	/^    void setDefined() { isDefined = true; }$/;"	f	class:AAGate
-setInvert	cir/cirGate.cpp	/^CirGate::setInvert( size_t& s) { $/;"	f	class:CirGate
+setInvert	cir/cirGate.cpp	/^CirGate::setInvert( size_t& s) const{ $/;"	f	class:CirGate
 setMemUsage	util/myUsage.h	/^   void setMemUsage() { _currentMem = checkMem() - _initMem; }$/;"	f	class:MyUsage
+setNonInv	cir/cirGate.cpp	/^CirGate::setNonInv( size_t& s ) const{$/;"	f	class:CirGate
 setTimeUsage	util/myUsage.h	/^   void setTimeUsage() {$/;"	f	class:MyUsage
 setUNDEF	cir/cirGate.h	/^    void setUNDEF() { isDefined = false; }$/;"	f	class:AAGate
+setXorInv	cir/cirGate.cpp	/^CirGate::setXorInv( size_t& s ) const{$/;"	f	class:CirGate
 set_keypress	util/myGetChar.cpp	/^static void set_keypress(void)$/;"	f	file:
 stored_settings	util/myGetChar.cpp	/^static struct termios stored_settings;$/;"	v	typeref:struct:termios	file:
 usage	cir/cirCmd.cpp	/^CirGateCmd::usage(ostream& os) const$/;"	f	class:CirGateCmd

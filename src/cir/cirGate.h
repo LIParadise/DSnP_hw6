@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <iostream>
 #include "cirDef.h"
 
@@ -39,16 +40,23 @@ class CirGate
     void reportFanin(int level) const;
     void reportFanout(int level) const;
 
+    // public helpers.
+    pair< set<size_t>::iterator, bool> insertChild ( size_t );
+    pair< set<size_t>::iterator, bool> insertParent( size_t );
+    set<size_t>::iterator findChild                ( size_t ) const;
+    set<size_t>::iterator findParent               ( size_t ) const;
+    CirGate* getPtr    ( size_t  ) const ;
+    bool     isInverted( size_t  ) const ;
+    void     setInvert ( size_t& ) const ;
+    void     setNonInv ( size_t& ) const ;
+    void     setXorInv ( size_t& ) const ;
+
   private:
 
-    vector< size_t > _parent;
-    vector< size_t > _child;
+    set< size_t >    _parent;
+    set< size_t >    _child;
     unsigned         _lineNo;
     unsigned         _gateID;
-
-    bool     isInverted( size_t  ) const ;
-    void     setInvert ( size_t& ) ;
-    CirGate* getPtr    ( size_t  ) const ;
 
   protected:
 
