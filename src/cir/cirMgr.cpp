@@ -188,6 +188,7 @@ CirMgr::readCircuit(const string& fileName)
       ptr = nullptr;
     }else {
       ptr -> setLineCnt( line_count );
+      PIIDList.push_back( id );
     }
     ++line_count;
   }
@@ -210,6 +211,7 @@ CirMgr::readCircuit(const string& fileName)
       ptr = nullptr;
     }else {
       ptr -> setLineCnt( line_count );
+      POIDList.push_back( id );
     }
     ++line_count;
   }
@@ -243,10 +245,10 @@ CirMgr::readCircuit(const string& fileName)
     ptr = nullptr;
     id = stoi( tmp_str1, nullptr, 10 ) /2 ;
     usedList.insert( id );
-    ret_pair = GateList.insert( pair< int, CirGate* > ( id, nullptr ));
+    ret_pair = GateList.insert( make_pair( id, nullptr ));
     id = stoi( tmp_str2, nullptr, 10 ) /2;
     usedList.insert( id );
-    ret_pair = GateList.insert( pair< int, CirGate* > ( id, nullptr ));
+    ret_pair = GateList.insert( make_pair( id, nullptr ));
 
     ++line_count;
   }
@@ -255,6 +257,8 @@ CirMgr::readCircuit(const string& fileName)
   UnDefinedList.clear();
   DefButNUsedList.reserve( 10);
   UnDefinedList.reserve( 10);
+  definedList.insert( 0 );
+  // CONST0 is always defined.
 
   set_difference( definedList.begin(), definedList.end(),
                  usedList.begin(), usedList.end(),
@@ -307,18 +311,18 @@ CirMgr::readCircuit(const string& fileName)
     itor2 = GateList.find( id2 );
 
     if( isInverted( var_1 ) ){
-      itorg -> second -> insertParent( getInvert(
-          reinterpret_cast<size_t>( itor1 -> second ) ) );
+      itorg -> second -> _parent[0] =
+        getInvert( reinterpret_cast<size_t>( itor1 -> second ) );
     }else{
-      itorg -> second -> insertParent( getNonInv(
-          reinterpret_cast<size_t>( itor1 -> second ) ) );
+      itorg -> second -> _parent[0] = 
+        reinterpret_cast<size_t>( itor1 -> second );
     }
     if( isInverted( var_2 ) ){
-      itorg -> second -> insertParent( getInvert(
-          reinterpret_cast<size_t>( itor2 -> second ) ) );
+      itorg -> second -> _parent[1] =
+        getInvert( reinterpret_cast<size_t>( itor2 -> second ) );
     }else{
-      itorg -> second -> insertParent( getNonInv(
-          reinterpret_cast<size_t>( itor2 -> second ) ) );
+      itorg -> second -> _parent[1] = 
+        reinterpret_cast<size_t>( itor2 -> second );
     }
 
     itor1 -> second -> insertChild ( 
@@ -342,7 +346,7 @@ CirMgr::clearGate() {
            });
   GateList.clear();
 }
-  
+
 
 /**********************************************************/
 /*   class CirMgr member functions for circuit printing   */
@@ -364,6 +368,13 @@ CirMgr::printSummary() const
 void
 CirMgr::printNetlist() const
 {
+  size_t idx = 0;
+  for( auto it : DFSList ){
+    cout << '[' << idx << "] ";
+    it.first -> printGate ();
+    cout << endl;
+    ++idx;
+  }
 }
 
 void
@@ -409,18 +420,20 @@ CirMgr::buildDFSList() {
 }
 
 bool 
-CirMgr::DFS( CirGate* ptr ){
+CirMgr::DFS( CirGate* ptr , int depth ){
+  CirGate* tmp = nullptr;
   for( auto it : ptr -> _parent ){
-    if( it -> getGateRef != globalDFSRef ){
-      it -> setGateRef( globalDFSRef );
-      it -> setActive();
-      DFS( it );
-      it -> unsetActive();
-    }else if( it -> isActive() ){
+    tmp = getPtr( it );
+    if( tmp -> getGateRef() != globalDFSRef ){
+      tmp -> setGateRef( globalDFSRef );
+      tmp -> setActive();
+      DFS( tmp , depth+1);
+      tmp -> unsetActive();
+    }else if( tmp -> isActive() ){
       // feedback
       return false;
     }
   }
-  DFSList.push_back( ptr );
+  DFSList.push_back( pair<CirGate*,int>(ptr, depth ));
   return true;
 }

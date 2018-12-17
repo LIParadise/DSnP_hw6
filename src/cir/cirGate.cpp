@@ -76,7 +76,7 @@ getXorInv( const size_t& s ) {
 }
 
 CirGate*
-CirGate::getPtr( size_t s ) const{
+getPtr( size_t s ) {
   size_t ret = getNonInv(s);
   return reinterpret_cast< CirGate* > (ret);
 }
@@ -87,31 +87,55 @@ CirGate::insertChild( size_t s) {
   return _child.insert( getNonInv(s) );
 }
 
-pair< set<size_t>::iterator, bool>
-CirGate::insertParent( size_t s) {
-  // may contain inverted info!!
-  return _parent.insert( s );
-}
-
 set<size_t>::iterator
 CirGate::findChild( size_t s ) const{
   // no inv info shall be included.
   return _child.find( getNonInv(s) );
 }
 
-set<size_t>::iterator
+int
 CirGate::findParent( size_t s ) const{
   // _parent contains inv info.
-  set<size_t>::iterator it;
-  it = _parent.find(s);
-  if( it != _parent.end() )
-    return it;
-  else{
-    return _parent.find( getXorInv(s) );
-  }
+  if( _parent[0] == s || _parent[0] == getXorInv(s) )
+    return 0;
+  else if( _parent[1] == s || _parent[1] == getXorInv(s) )
+    return 1;
+  else
+    return -1;
 }
 
 void
 CirGate::setLineCnt( unsigned u){
   _lineNo = u;
 }
+
+void
+POGate::printGate() const {
+  cout << "PO  " << getGateID();
+  if( _symbolMsg != "" )
+    cout << "  (" << _symbolMsg << ')';
+}
+
+void
+PIGate::printGate() const {
+  cout << "PI  " << getGateID();
+  if( _symbolMsg != "" )
+    cout << "  (" << _symbolMsg << ')';
+}
+
+void
+AAGate::printGate() const {
+  if( getGateID() == 0 )
+    cout << "CONST0";
+  else{
+    cout << "AAG " << getGateID();
+    if( isInverted( _parent[0] ))
+      cout << '!';
+    cout << getPtr( getNonInv( _parent[0] )) -> getGateID();
+    cout << ' ';
+    if( isInverted( _parent[1] ))
+      cout << '!';
+    cout << getPtr( getNonInv( _parent[1] )) -> getGateID();
+  }
+}
+

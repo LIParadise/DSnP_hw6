@@ -26,8 +26,8 @@ class CirGate;
 class CirGate
 {
   public:
-    CirGate(): _active(false), _lineNo(0), _gateID(0), _gateDFSRef(0) {}
-    CirGate(int i) : _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0) {}
+    CirGate(): _parent{0}, _active(false), _lineNo(0), _gateID(0), _gateDFSRef(0) {}
+    CirGate(int i) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0) {}
     virtual ~CirGate() {}
 
     // Basic access methods
@@ -43,10 +43,8 @@ class CirGate
 
     // public helpers.
     pair< set<size_t>::iterator, bool> insertChild ( size_t );
-    pair< set<size_t>::iterator, bool> insertParent( size_t );
     set<size_t>::iterator findChild                ( size_t ) const;
-    set<size_t>::iterator findParent               ( size_t ) const;
-    CirGate* getPtr      ( size_t  ) const ;
+    int                   findParent               ( size_t ) const;
     void     setLineCnt  ( unsigned )      ;
     void     setGateId   ( unsigned )      ;
     void     setGateRef  ( size_t s ) { _gateDFSRef = s ; }
@@ -55,8 +53,8 @@ class CirGate
     void     unsetActive ( )          { _active = false; }
     bool     isActive    ()           { return _active; }
 
-    set<size_t>    _parent;
-    set<size_t>    _child;
+    size_t            _parent[2];
+    set<size_t>       _child;
 
   private:
 
@@ -74,7 +72,7 @@ class POGate : public CirGate {
     POGate(): CirGate(), _symbolMsg("") {}
     POGate(int i): CirGate(i), _symbolMsg( "" ) {}
     virtual string getTypeStr() const { return "PO"; }
-    virtual void printGate() const { cout << getTypeStr(); };
+    virtual void printGate() const ;
   private:
     string _symbolMsg;
 };
@@ -83,7 +81,7 @@ class PIGate : public CirGate {
     PIGate(): CirGate(), _symbolMsg("") {}
     PIGate(int i): CirGate(i), _symbolMsg( "" ) {}
     virtual string getTypeStr() const { return "PI"; }
-    virtual void printGate() const { cout << getTypeStr(); };
+    virtual void printGate() const ;
   private:
     string _symbolMsg;
 };
@@ -98,7 +96,7 @@ class AAGate : public CirGate {
     void setDefined() { _IsDefined = true; }
     void setUNDEF() { _IsDefined = false; }
     bool isDefined() const { return _IsDefined; }
-    virtual void printGate() const { cout << getTypeStr(); };
+    virtual void printGate() const ;
   private:
     bool _IsDefined;
 };
@@ -109,5 +107,6 @@ size_t   getXorInv  ( const size_t& ) ;
 bool     isInverted ( const size_t ) ;
 bool     isInverted ( const unsigned ) ;
 bool     isInverted ( const int ) ;
+CirGate* getPtr     ( size_t  ) ;
 
 #endif // CIR_GATE_H

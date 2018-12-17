@@ -48,7 +48,7 @@ private:
 
    // helper functions
    bool buildDFSList () ;
-   bool DFS          ( CirGate* ) ;
+   bool DFS          ( CirGate*, int = 0 ) ;
    void clearGate    () ;
 
    // helper data fields
@@ -69,7 +69,7 @@ private:
    vector< int> MILOA;
    // TODO, shall have a field remaining symbol msg.
 
-   vector< CirGate*> DFSList;
+   vector< pair<CirGate*, int> > DFSList;
 
 };
 
