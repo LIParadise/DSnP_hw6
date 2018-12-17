@@ -104,12 +104,15 @@ findParent	cir/cirGate.cpp	/^CirGate::findParent( size_t s ) const{$/;"	f	class:
 getGate	cir/cirMgr.h	/^   CirGate* getGate(unsigned gid) const { return 0; }$/;"	f	class:CirMgr
 getGateID	cir/cirGate.h	/^    unsigned getGateID() const { return _gateID; }$/;"	f	class:CirGate
 getHashSize	util/util.cpp	/^size_t getHashSize(size_t s) {$/;"	f
+getInvert	cir/cirGate.cpp	/^getInvert( const size_t& s) { $/;"	f
 getLineNo	cir/cirGate.h	/^    unsigned getLineNo() const { return _lineNo; }$/;"	f	class:CirGate
+getNonInv	cir/cirGate.cpp	/^getNonInv( const size_t& s ) {$/;"	f
 getPtr	cir/cirGate.cpp	/^CirGate::getPtr( size_t s ) const{$/;"	f	class:CirGate
 getTypeStr	cir/cirGate.h	/^    virtual  string getTypeStr() const { return "base"; }$/;"	f	class:CirGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PI"; }$/;"	f	class:PIGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PO"; }$/;"	f	class:POGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const {$/;"	f	class:AAGate
+getXorInv	cir/cirGate.cpp	/^getXorInv( const size_t& s ) {$/;"	f
 help	cir/cirCmd.cpp	/^CirGateCmd::help() const$/;"	f	class:CirGateCmd
 help	cir/cirCmd.cpp	/^CirPrintCmd::help() const$/;"	f	class:CirPrintCmd
 help	cir/cirCmd.cpp	/^CirReadCmd::help() const$/;"	f	class:CirReadCmd
@@ -118,7 +121,9 @@ initCirCmd	cir/cirCmd.cpp	/^initCirCmd()$/;"	f
 insertChild	cir/cirGate.cpp	/^CirGate::insertChild( size_t s) {$/;"	f	class:CirGate
 insertParent	cir/cirGate.cpp	/^CirGate::insertParent( size_t s) {$/;"	f	class:CirGate
 isDefined	cir/cirGate.h	/^    bool isDefined() const { return _IsDefined; }$/;"	f	class:AAGate
-isInverted	cir/cirGate.cpp	/^CirGate::isInverted( size_t s ) const {$/;"	f	class:CirGate
+isInverted	cir/cirGate.cpp	/^isInverted( const int s ) {$/;"	f
+isInverted	cir/cirGate.cpp	/^isInverted( const size_t s ) {$/;"	f
+isInverted	cir/cirGate.cpp	/^isInverted( const unsigned s ) {$/;"	f
 isValidVarName	util/myString.cpp	/^isValidVarName(const string& str)$/;"	f
 lineNo	cir/cirMgr.cpp	/^static unsigned lineNo = 0;  \/\/ in printint, lineNo needs to ++$/;"	v	file:
 listDir	util/util.cpp	/^int listDir$/;"	f
@@ -149,12 +154,9 @@ reportGate	cir/cirGate.cpp	/^CirGate::reportGate() const$/;"	f	class:CirGate
 reset	util/myUsage.h	/^   void reset() {$/;"	f	class:MyUsage
 reset_keypress	util/myGetChar.cpp	/^static void reset_keypress(void)$/;"	f	file:
 setDefined	cir/cirGate.h	/^    void setDefined() { _IsDefined = true; }$/;"	f	class:AAGate
-setInvert	cir/cirGate.cpp	/^CirGate::setInvert( size_t& s) const{ $/;"	f	class:CirGate
 setMemUsage	util/myUsage.h	/^   void setMemUsage() { _currentMem = checkMem() - _initMem; }$/;"	f	class:MyUsage
-setNonInv	cir/cirGate.cpp	/^CirGate::setNonInv( size_t& s ) const{$/;"	f	class:CirGate
 setTimeUsage	util/myUsage.h	/^   void setTimeUsage() {$/;"	f	class:MyUsage
 setUNDEF	cir/cirGate.h	/^    void setUNDEF() { _IsDefined = false; }$/;"	f	class:AAGate
-setXorInv	cir/cirGate.cpp	/^CirGate::setXorInv( size_t& s ) const{$/;"	f	class:CirGate
 set_keypress	util/myGetChar.cpp	/^static void set_keypress(void)$/;"	f	file:
 stored_settings	util/myGetChar.cpp	/^static struct termios stored_settings;$/;"	v	typeref:struct:termios	file:
 usage	cir/cirCmd.cpp	/^CirGateCmd::usage(ostream& os) const$/;"	f	class:CirGateCmd

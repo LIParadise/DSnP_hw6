@@ -43,37 +43,48 @@ CirGate::reportFanout(int level) const
 }
 
 bool
-CirGate::isInverted( size_t s ) const {
+isInverted( const size_t s ) {
+  size_t i = (s & 1);
+  return i;
+}
+
+bool
+isInverted( const unsigned s ) {
+  unsigned i = (s & 1);
+  return i;
+}
+
+bool
+isInverted( const int s ) {
   int i = (s & 1);
   return i;
 }
 
-void
-CirGate::setInvert( size_t& s) const{ 
-  s = (s | 1);
+size_t
+getInvert( const size_t& s) { 
+  return (s | 1);
 }
 
-void
-CirGate::setNonInv( size_t& s ) const{
-  s = (s & (~1));
+size_t
+getNonInv( const size_t& s ) {
+  return (s & (~1));
 }
 
-void
-CirGate::setXorInv( size_t& s ) const{
-  s = (s ^ (1));
+size_t
+getXorInv( const size_t& s ) {
+  return (s ^ (1));
 }
 
 CirGate*
 CirGate::getPtr( size_t s ) const{
-  setNonInv(s);
-  return reinterpret_cast< CirGate* > (s);
+  size_t ret = getNonInv(s);
+  return reinterpret_cast< CirGate* > (ret);
 }
 
 pair< set<size_t>::iterator, bool>
 CirGate::insertChild( size_t s) {
   // shall NOT contain inverted info!!
-  setNonInv( s );
-  return _child.insert( s );
+  return _child.insert( getNonInv(s) );
 }
 
 pair< set<size_t>::iterator, bool>
@@ -85,8 +96,7 @@ CirGate::insertParent( size_t s) {
 set<size_t>::iterator
 CirGate::findChild( size_t s ) const{
   // no inv info shall be included.
-  setNonInv( s);
-  return _child.find( s );
+  return _child.find( getNonInv(s) );
 }
 
 set<size_t>::iterator
@@ -97,7 +107,6 @@ CirGate::findParent( size_t s ) const{
   if( it != _parent.end() )
     return it;
   else{
-    setXorInv(s);
-    return _parent.find(s);
+    return _parent.find( getXorInv(s) );
   }
 }

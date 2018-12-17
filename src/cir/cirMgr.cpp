@@ -161,7 +161,6 @@ CirMgr::readCircuit(const string& fileName)
   int       ss_pos         = 0;
   unsigned  line_count     = 0;
   unsigned  line_count_bak = 0;
-  auto      GLItor         = GateList.begin();
   MILOA.reserve(5);
 
   getline( myfile, tmp_str ); // string; "aag MILOA";
@@ -282,21 +281,49 @@ CirMgr::readCircuit(const string& fileName)
              } 
            });
 
+  // routing.
   myfile.clear();
   myfile.seekg( ss_pos );
   for( int i = 0; i < MILOA[4]; ++i ) { // A
     getline( myfile, tmp_str );
     stringstream ss ( tmp_str );
     ss >> tmp_str >> tmp_str1 >> tmp_str2;
-    int gid = stoi( tmp_str, nullptr, 10 );
-    int id1 = stoi( tmp_str, nullptr, 10 );
-    int id2 = stoi( tmp_str, nullptr, 10 );
+    auto itorg = GateList.begin();
+    auto itor1 = GateList.begin();
+    auto itor2 = GateList.begin();
+    int g_var = stoi( tmp_str, nullptr, 10 );
+    int var_1 = stoi( tmp_str1, nullptr, 10 );
+    int var_2 = stoi( tmp_str2, nullptr, 10 );
+    int gid = g_var/2;
+    int id1 = var_1/2;
+    int id2 = var_2/2;
 
     // aag(gid) is based on id1, id2.
     // set id1 to have child gid.
     // set id2 to have child gid.
-    gid = gid / 2;
-    GLItor = GateList.find( gid );
+    itorg = GateList.find( gid );
+    itor1 = GateList.find( id1 );
+    itor2 = GateList.find( id2 );
+
+    if( isInverted( var_1 ) ){
+      itorg -> second -> insertParent( getInvert(
+          reinterpret_cast<size_t>( itor1 -> second ) ) );
+    }else{
+      itorg -> second -> insertParent( getNonInv(
+          reinterpret_cast<size_t>( itor1 -> second ) ) );
+    }
+    if( isInverted( var_2 ) ){
+      itorg -> second -> insertParent( getInvert(
+          reinterpret_cast<size_t>( itor2 -> second ) ) );
+    }else{
+      itorg -> second -> insertParent( getNonInv(
+          reinterpret_cast<size_t>( itor2 -> second ) ) );
+    }
+
+    itor1 -> second -> insertChild ( 
+      reinterpret_cast<size_t> ( itorg -> second ) );
+    itor2 -> second -> insertChild ( 
+      reinterpret_cast<size_t> ( itorg -> second ) );
   }
 
   return true;

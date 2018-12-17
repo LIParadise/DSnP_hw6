@@ -46,10 +46,6 @@ class CirGate
     set<size_t>::iterator findChild                ( size_t ) const;
     set<size_t>::iterator findParent               ( size_t ) const;
     CirGate* getPtr     ( size_t  ) const ;
-    bool     isInverted ( size_t  ) const ;
-    void     setInvert  ( size_t& ) const ;
-    void     setNonInv  ( size_t& ) const ;
-    void     setXorInv  ( size_t& ) const ;
     void     setLineCnt ( unsigned )      ;
     void     setGateId  ( unsigned )      ;
 
@@ -94,5 +90,12 @@ class AAGate : public CirGate {
   private:
     bool _IsDefined;
 };
+
+size_t   getInvert  ( const size_t& ) ;
+size_t   getNonInv  ( const size_t& ) ;
+size_t   getXorInv  ( const size_t& ) ;
+bool     isInverted ( const size_t ) ;
+bool     isInverted ( const unsigned ) ;
+bool     isInverted ( const int ) ;
 
 #endif // CIR_GATE_H
