@@ -30,7 +30,6 @@ set tabline=%!Tabline()
 set tabstop=2
 set tags=./tags;/
 set undodir=~/.undo/,/tmp//
-set window=41
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -175,12 +174,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 51 - ((25 * winheight(0) + 19) / 39)
+let s:l = 29 - ((4 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-51
-normal! 041|
+29
+normal! 037|
 wincmd w
 argglobal
 edit src/cir/cirGate.cpp
@@ -435,12 +434,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 252 - ((22 * winheight(0) + 19) / 39)
+let s:l = 294 - ((25 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-252
-normal! 014|
+294
+normal! 0
 wincmd w
 argglobal
 edit src/cir/cirMgr.cpp
@@ -555,11 +554,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 164 - ((12 * winheight(0) + 9) / 19)
+let s:l = 24 - ((17 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-164
+24
 normal! 0
 wincmd w
 argglobal
@@ -675,12 +674,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 56 - ((13 * winheight(0) + 9) / 19)
+let s:l = 54 - ((15 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-56
-normal! 042|
+54
+normal! 015|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 77 + 73) / 146)
 exe '2resize ' . ((&lines * 19 + 21) / 42)
@@ -1058,7 +1057,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 17 - ((16 * winheight(0) + 20) / 40)
+let s:l = 17 - ((16 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1182,7 +1181,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 39 - ((26 * winheight(0) + 20) / 40)
+let s:l = 39 - ((25 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

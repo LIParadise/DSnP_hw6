@@ -26,7 +26,7 @@ class CirGate;
 class CirGate
 {
   public:
-    CirGate() {}
+    CirGate(): _lineNo(0), _gateID(0) {}
     virtual ~CirGate() {}
 
     // Basic access methods

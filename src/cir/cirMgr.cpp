@@ -268,19 +268,19 @@ CirMgr::readCircuit(const string& fileName)
   // island is an aag with no input specified,
   // thus not to be detected here.
 
-  // lhs first, thus we could copy constructed POGate,
-  // PIGate, and AAGate pointers to the union.
-
-  /*
   for_each( GateList.begin(), GateList.end(),
-           [] ( pair< int, char >& p) -> pair<int, char> {
-             if( p.second == nullptr )
-               return pair< int, CirGate*>
-                 ( p.first, new AAGate( false ) );
-             else
-               return p;
-           } );
-           */
+           [this] ( pair< const int, CirGate* >& p)  {
+             if( p.second == nullptr ){
+#ifdef DEBUG
+               auto it = find( UnDefinedList.begin(),
+                              UnDefinedList.end(), p.first );
+               assert( it != UnDefinedList.end() &&
+                      "weird UnDefinedList while reading file" );
+#endif
+               auto ptr = new AAGate(false);
+               p.second = ptr;
+             } 
+           });
 
   myfile.clear();
   myfile.seekg( ss_pos );
