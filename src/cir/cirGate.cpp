@@ -132,7 +132,7 @@ AAGate::printGate() const {
   if( getGateID() == 0 )
     cout << "CONST0";
   else{
-    cout << "AAG " << getGateID() << ' ';
+    cout << "AIG " << getGateID() << ' ';
     if( isInverted( _parent[0] ))
       cout << '!';
     cout << getPtr( getNonInv( _parent[0] )) -> getGateID();

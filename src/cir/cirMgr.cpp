@@ -411,6 +411,8 @@ void
 CirMgr::printPIs() const
 {
   cout << "PIs of the circuit:";
+  for( auto it : PIIDList )
+    cout << ' ' << it;
   cout << endl;
 }
 
@@ -418,6 +420,8 @@ void
 CirMgr::printPOs() const
 {
   cout << "POs of the circuit:";
+  for( auto it : POIDList )
+    cout << ' ' << it;
   cout << endl;
 }
 
