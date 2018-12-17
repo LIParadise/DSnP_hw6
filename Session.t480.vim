@@ -174,11 +174,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 51 - ((29 * winheight(0) + 19) / 39)
+let s:l = 90 - ((24 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-51
+90
 normal! 026|
 wincmd w
 argglobal
@@ -294,12 +294,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 126 - ((23 * winheight(0) + 19) / 39)
+let s:l = 129 - ((26 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-126
-normal! 04|
+129
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 80 + 73) / 146)
 exe 'vert 2resize ' . ((&columns * 65 + 73) / 146)
@@ -427,12 +427,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 287 - ((34 * winheight(0) + 19) / 39)
+let s:l = 283 - ((29 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-287
-normal! 014|
+283
+normal! 0
 wincmd w
 argglobal
 edit src/cir/cirMgr.cpp
@@ -547,13 +547,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 411 - ((18 * winheight(0) + 19) / 39)
+let s:l = 430 - ((24 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-411
-normal! 04|
+430
+normal! 012|
 wincmd w
+2wincmd w
 exe 'vert 1resize ' . ((&columns * 77 + 73) / 146)
 exe 'vert 2resize ' . ((&columns * 68 + 73) / 146)
 tabedit src/cir/cirMgr.h

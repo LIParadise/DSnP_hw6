@@ -278,8 +278,10 @@ CirMgr::readCircuit(const string& fileName)
                auto it = find( UnDefinedList.begin(),
                               UnDefinedList.end(), p.first );
 #ifdef DEBUG
-               assert( it != UnDefinedList.end() &&
-                      "weird UnDefinedList while reading file" );
+               if( p.first != 0 ){
+                 assert( it != UnDefinedList.end() &&
+                        "weird UnDefinedList while reading file" );
+               }
 #endif
                auto ptr = new AAGate( p.first, false);
                p.second = ptr;
@@ -422,16 +424,19 @@ CirMgr::buildDFSList() {
 bool 
 CirMgr::DFS( CirGate* ptr , int depth ){
   CirGate* tmp = nullptr;
-  for( auto it : ptr -> _parent ){
-    tmp = getPtr( it );
-    if( tmp -> getGateRef() != globalDFSRef ){
-      tmp -> setGateRef( globalDFSRef );
-      tmp -> setActive();
-      DFS( tmp , depth+1);
-      tmp -> unsetActive();
-    }else if( tmp -> isActive() ){
-      // feedback
-      return false;
+  for( size_t i = 0; i < 2; ++i ){
+    auto it = ptr -> _parent[i];
+    if( it ){
+      tmp = getPtr( it );
+      if( tmp -> getGateRef() != globalDFSRef ){
+        tmp -> setGateRef( globalDFSRef );
+        tmp -> setActive();
+        DFS( tmp , depth+1);
+        tmp -> unsetActive();
+      }else if( tmp -> isActive() ){
+        // feedback
+        return false;
+      }
     }
   }
   DFSList.push_back( pair<CirGate*,int>(ptr, depth ));
