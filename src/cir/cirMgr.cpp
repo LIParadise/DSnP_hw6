@@ -451,7 +451,8 @@ CirMgr::buildDFSList() {
 
 bool 
 CirMgr::DFS( CirGate* ptr , int depth ){
-  CirGate* tmp = nullptr;
+  CirGate* tmp  = nullptr;
+  bool     flag = true;
   for( size_t i = 0; i < 2; ++i ){
     auto it = ptr -> _parent[i];
     if( it ){
@@ -461,7 +462,7 @@ CirMgr::DFS( CirGate* ptr , int depth ){
         tmp -> setActive();
         DFS( tmp , depth+1);
         tmp -> unsetActive();
-      }else if( tmp -> isActive() ){
+      }else if( tmp -> isActive() || !flag ){
         // feedback
         return false;
       }
