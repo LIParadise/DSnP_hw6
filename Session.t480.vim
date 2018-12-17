@@ -40,8 +40,8 @@ endif
 set shortmess=aoO
 badd +1 src/cir/cirGate.cpp
 badd +1 src/cir/cirGate.h
-badd +1 src/cir/cirMgr.h
-badd +1 src/cir/cirMgr.cpp
+badd +46 src/cir/cirMgr.h
+badd +162 src/cir/cirMgr.cpp
 badd +1 src/cir/cirCmd.cpp
 badd +1 src/cir/cirCmd.h
 badd +1 src/cir/cirDef.h
@@ -174,12 +174,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 29 - ((4 * winheight(0) + 19) / 39)
+let s:l = 59 - ((15 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-29
-normal! 037|
+59
+normal! 026|
 wincmd w
 argglobal
 edit src/cir/cirGate.cpp
@@ -294,12 +294,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 100 - ((35 * winheight(0) + 19) / 39)
+let s:l = 114 - ((28 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-100
-normal! 014|
+114
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 80 + 73) / 146)
 exe 'vert 2resize ' . ((&columns * 65 + 73) / 146)
@@ -309,19 +309,12 @@ wincmd _ | wincmd |
 vsplit
 1wincmd h
 wincmd w
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 exe 'vert 1resize ' . ((&columns * 77 + 73) / 146)
-exe '2resize ' . ((&lines * 19 + 21) / 42)
 exe 'vert 2resize ' . ((&columns * 68 + 73) / 146)
-exe '3resize ' . ((&lines * 19 + 21) / 42)
-exe 'vert 3resize ' . ((&columns * 68 + 73) / 146)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -434,12 +427,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 294 - ((25 * winheight(0) + 19) / 39)
+let s:l = 158 - ((8 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-294
-normal! 0
+158
+normal! 03|
 wincmd w
 argglobal
 edit src/cir/cirMgr.cpp
@@ -554,15 +547,23 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 24 - ((17 * winheight(0) + 9) / 19)
+let s:l = 414 - ((26 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-24
-normal! 0
+414
+normal! 09|
 wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 77 + 73) / 146)
+exe 'vert 2resize ' . ((&columns * 68 + 73) / 146)
+tabedit src/cir/cirMgr.h
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winheight=1 winwidth=1
 argglobal
-edit src/cir/cirMgr.h
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -674,18 +675,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 54 - ((15 * winheight(0) + 9) / 19)
+let s:l = 51 - ((16 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-54
-normal! 015|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 77 + 73) / 146)
-exe '2resize ' . ((&lines * 19 + 21) / 42)
-exe 'vert 2resize ' . ((&columns * 68 + 73) / 146)
-exe '3resize ' . ((&lines * 19 + 21) / 42)
-exe 'vert 3resize ' . ((&columns * 68 + 73) / 146)
+51
+normal! 021|
 tabedit src/cir/cirCmd.cpp
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -810,12 +805,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 78 - ((3 * winheight(0) + 19) / 39)
+let s:l = 80 - ((17 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-78
-normal! 07|
+80
+normal! 04|
 wincmd w
 argglobal
 edit src/cir/cirCmd.h

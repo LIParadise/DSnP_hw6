@@ -180,7 +180,7 @@ CirMgr::readCircuit(const string& fileName)
     definedList.insert( id );
 
     // set GateList
-    auto ptr = new PIGate();
+    auto ptr = new PIGate( id);
     if( GateList.insert( pair< int, CirGate* > ( id, ptr ) )
        .second == false ){
       // insertion failure.
@@ -202,7 +202,7 @@ CirMgr::readCircuit(const string& fileName)
     usedList.insert( id );
 
     // set GateList
-    auto ptr = new POGate();
+    auto ptr = new POGate( id);
     if( GateList.insert( pair< int, CirGate* > ( id, ptr ) )
        .second == false ){
       // insertion failure.
@@ -226,7 +226,7 @@ CirMgr::readCircuit(const string& fileName)
     int id = stoi( tmp_str, nullptr, 10 ) / 2;
     definedList.insert( id );
 
-    auto ptr       = new AAGate( true );
+    auto ptr       = new AAGate( id, true );
     auto ret_pair = GateList.insert( pair< int, CirGate* > ( id, ptr ));
     ptr -> setLineCnt( line_count );
     if( ret_pair . second == false ){
@@ -267,16 +267,17 @@ CirMgr::readCircuit(const string& fileName)
   // island is an aag with no input specified,
   // thus not to be detected here.
 
+  // handle undefined gate
   for_each( GateList.begin(), GateList.end(),
            [this] ( pair< const int, CirGate* >& p)  {
              if( p.second == nullptr ){
-#ifdef DEBUG
                auto it = find( UnDefinedList.begin(),
                               UnDefinedList.end(), p.first );
+#ifdef DEBUG
                assert( it != UnDefinedList.end() &&
                       "weird UnDefinedList while reading file" );
 #endif
-               auto ptr = new AAGate(false);
+               auto ptr = new AAGate( p.first, false);
                p.second = ptr;
              } 
            });
@@ -326,8 +327,22 @@ CirMgr::readCircuit(const string& fileName)
       reinterpret_cast<size_t> ( itorg -> second ) );
   }
 
+  buildDFSList();
+  // optional TODO: report cyclic.
+
   return true;
 }
+
+void
+CirMgr::clearGate() {
+  for_each( GateList.begin(), GateList.end(), [] 
+           ( pair< const int, CirGate*>& p ) {
+             delete p.second;
+             p.second = nullptr;
+           });
+  GateList.clear();
+}
+  
 
 /**********************************************************/
 /*   class CirMgr member functions for circuit printing   */
@@ -380,4 +395,32 @@ myPairIntCharCmp(
   const pair< int, char >& pair1,
   const pair< int, char >& pair2 ) {
   return pair1.first < pair2.first ;
+}
+
+bool
+CirMgr::buildDFSList() {
+  for( auto it : POIDList ){
+    globalDFSRef ++;
+    CirGate* ptr = GateList.find( it) -> second;
+    if( ! DFS(ptr) ){
+      // optional TODO, feedback, i.e. cyclic.
+    }
+  }
+}
+
+bool 
+CirMgr::DFS( CirGate* ptr ){
+  for( auto it : ptr -> _parent ){
+    if( it -> getGateRef != globalDFSRef ){
+      it -> setGateRef( globalDFSRef );
+      it -> setActive();
+      DFS( it );
+      it -> unsetActive();
+    }else if( it -> isActive() ){
+      // feedback
+      return false;
+    }
+  }
+  DFSList.push_back( ptr );
+  return true;
 }

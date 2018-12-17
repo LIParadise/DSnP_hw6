@@ -110,3 +110,8 @@ CirGate::findParent( size_t s ) const{
     return _parent.find( getXorInv(s) );
   }
 }
+
+void
+CirGate::setLineCnt( unsigned u){
+  _lineNo = u;
+}

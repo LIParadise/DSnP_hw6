@@ -26,8 +26,8 @@ extern CirMgr *cirMgr;
 class CirMgr
 {
 public:
-   CirMgr(){}
-   ~CirMgr() {}
+   CirMgr(): globalDFSRef(0)  {}
+   ~CirMgr() { clearGate();}
 
    // Access functions
    // return '0' if "gid" corresponds to an undefined gate.
@@ -46,21 +46,30 @@ public:
 
 private:
 
+   // helper functions
+   bool buildDFSList () ;
+   bool DFS          ( CirGate* ) ;
+   void clearGate    () ;
+
+   // helper data fields
    set<int>  definedList;
    // PI, AAG.
    set<int>  usedList;
    // PO, fanin of AAG.
+   size_t    globalDFSRef;
+
    vector< int > DefButNUsedList;
    vector< int > UnDefinedList;
 
    map< int, CirGate* > GateList;
 
-   vector< pair< int, CirGate*>> PIList;
-   vector< pair< int, CirGate*>> POList;
+   vector< int > PIIDList;
+   vector< int > POIDList;
    vector< pair< int, CirGate*>> Island;
    vector< int> MILOA;
    // TODO, shall have a field remaining symbol msg.
 
+   vector< CirGate*> DFSList;
 
 };
 
