@@ -440,8 +440,8 @@ myPairIntCharCmp(
 
 bool
 CirMgr::buildDFSList() {
+  globalDFSRef ++;
   for( auto it : POIDList ){
-    globalDFSRef ++;
     CirGate* ptr = GateList.find( it) -> second;
     if( ! DFS(ptr) ){
       // optional TODO, feedback, i.e. cyclic.
