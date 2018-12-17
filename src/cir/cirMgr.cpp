@@ -175,26 +175,44 @@ CirMgr::readCircuit(const string& fileName)
 
   line_count = 2;
   for( int i = 0; i < MILOA[1]; ++i ) { // I
+    // set definedList;
     getline( myfile, tmp_str );
-    PIGate* ptr = new PIGate();
-    int     id  = stoi( tmp_str, nullptr, 10 )/2;
-    lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
-    PIList.push_back( pair<int, CirGate*> ( id, ptr ) );
-    ptr -> setLineCnt( line_count );
-    line_count ++;
+    int id  = stoi( tmp_str, nullptr, 10 )/2;
+    definedList.insert( id );
+
+    // set GateList
+    auto ptr = new PIGate();
+    if( GateList.insert( pair< int, CirGate* > ( id, ptr ) )
+       .second == false ){
+      // insertion failure.
+      delete ptr;
+      ptr = nullptr;
+    }else {
+      ptr -> setLineCnt( line_count );
+    }
+    ++line_count;
   }
   for( int i = 0; i < MILOA[2]; ++i ) { // L
     getline( myfile, tmp_str );
-    line_count ++;
+    ++line_count;
   }
   for( int i = 0; i < MILOA[3]; ++i ) { // O
+    // set usedList
     getline( myfile, tmp_str );
-    POGate* ptr = new POGate();
-    int     id  = stoi( tmp_str, nullptr, 10 )/2;
-    lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
-    POList.push_back( pair<int, CirGate*> ( id, ptr ) );
-    ptr -> setLineCnt( line_count );
-    line_count ++;
+    int id  = stoi( tmp_str, nullptr, 10 )/2;
+    usedList.insert( id );
+
+    // set GateList
+    auto ptr = new POGate();
+    if( GateList.insert( pair< int, CirGate* > ( id, ptr ) )
+       .second == false ){
+      // insertion failure.
+      delete ptr;
+      ptr = nullptr;
+    }else {
+      ptr -> setLineCnt( line_count );
+    }
+    ++line_count;
   }
 
   // back up start position of A of MILOA
@@ -204,56 +222,65 @@ CirMgr::readCircuit(const string& fileName)
   for( int i = 0; i < MILOA[4]; ++i ) { // A
     getline( myfile, tmp_str );
     stringstream ss ( tmp_str );
-    ss >> tmp_str;
-    AAGate* ptr = new AAGate(true);
-    ptr -> setLineCnt( line_count );
-    lhsID.insert( pair< int, CirGate* > (
-          stoi( tmp_str, nullptr, 10) /2 ,
-          ptr ) );
-    line_count ++;
+    ss >> tmp_str >> tmp_str1 >> tmp_str2;
 
-    ss >> tmp_str;
-    rhsID.insert( pair< int, CirGate* > (
-          stoi( tmp_str, nullptr, 10) /2 ,
-          nullptr ) );
-    ss >> tmp_str;
-    rhsID.insert( pair< int, CirGate* > (
-          stoi( tmp_str, nullptr, 10) /2 ,
-          nullptr ) );
+    int id = stoi( tmp_str, nullptr, 10 ) / 2;
+    definedList.insert( id );
+
+    auto ptr       = new AAGate( true );
+    auto ret_pair = GateList.insert( pair< int, CirGate* > ( id, ptr ));
+    ptr -> setLineCnt( line_count );
+    if( ret_pair . second == false ){
+      // insertion failure.
+      // check if valid (CirGate*)
+      if( ret_pair.first->second == nullptr )
+        ret_pair.first->second = ptr;
+      else{
+        // optional TODO 
+        // report gate re-define.
+      }
+    }
+
+    ptr = nullptr;
+    id = stoi( tmp_str1, nullptr, 10 ) /2 ;
+    usedList.insert( id );
+    ret_pair = GateList.insert( pair< int, CirGate* > ( id, nullptr ));
+    id = stoi( tmp_str2, nullptr, 10 ) /2;
+    usedList.insert( id );
+    ret_pair = GateList.insert( pair< int, CirGate* > ( id, nullptr ));
+
+    ++line_count;
   }
 
-  FLList.clear();
-  UGList.clear();
-  Island.clear();
-  GateList.clear();
-  FLList.reserve( 10);
-  UGList.reserve( 10);
-  Island.reserve( 10);
-  GateList.reserve( (lhsID.size() + rhsID.size() ) / 2 );
+  DefButNUsedList.clear();
+  UnDefinedList.clear();
+  DefButNUsedList.reserve( 10);
+  UnDefinedList.reserve( 10);
 
-  set_difference( lhsID.begin(), lhsID.end(), rhsID.begin(),
-      rhsID.end(), back_inserter(FLList), myPairIntCirGateCmp );
+  set_difference( definedList.begin(), definedList.end(),
+                 usedList.begin(), usedList.end(),
+                 back_inserter(DefButNUsedList));
 
-  set_difference( rhsID.begin(), rhsID.end(), lhsID.begin(),
-      lhsID.end(), back_inserter(UGList), myPairIntCirGateCmp );
+  set_difference( usedList.begin(), usedList.end(),
+                 definedList.begin(), definedList.end(),
+                 back_inserter(UnDefinedList) );
 
-  set_intersection( rhsID.begin(), rhsID.end(), lhsID.begin(),
-      lhsID.end(), back_inserter(Island), myPairIntCirGateCmp );
-  // Island have ( first == id ) and ( second == nullptr );
+  // island is an aag with no input specified,
+  // thus not to be detected here.
 
-  set_union( lhsID.begin(), lhsID.end(), rhsID.begin(),
-      rhsID.end(), back_inserter(GateList), myPairIntCirGateCmp );
   // lhs first, thus we could copy constructed POGate,
   // PIGate, and AAGate pointers to the union.
 
+  /*
   for_each( GateList.begin(), GateList.end(),
-           [] ( pair< int, CirGate* >& p) -> pair<int, CirGate*> {
+           [] ( pair< int, char >& p) -> pair<int, char> {
              if( p.second == nullptr )
                return pair< int, CirGate*>
                  ( p.first, new AAGate( false ) );
              else
                return p;
            } );
+           */
 
   myfile.clear();
   myfile.seekg( ss_pos );
@@ -322,8 +349,8 @@ CirMgr::writeAag(ostream& outfile) const
 }
 
 bool
-myPairIntCirGateCmp(
-  const pair< int, CirGate* >& pair1,
-  const pair< int, CirGate* >& pair2 ) {
+myPairIntCharCmp(
+  const pair< int, char >& pair1,
+  const pair< int, char >& pair2 ) {
   return pair1.first < pair2.first ;
 }

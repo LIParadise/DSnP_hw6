@@ -46,22 +46,26 @@ public:
 
 private:
 
-   map< int, CirGate*>  lhsID;
-   map< int, CirGate*>  rhsID;
+   set<int>  definedList;
+   // PI, AAG.
+   set<int>  usedList;
+   // PO, fanin of AAG.
+   vector< int > DefButNUsedList;
+   vector< int > UnDefinedList;
+
+   map< int, CirGate* > GateList;
+
    vector< pair< int, CirGate*>> PIList;
    vector< pair< int, CirGate*>> POList;
-   vector< pair< int, CirGate*>> FLList;
-   vector< pair< int, CirGate*>> UGList;
    vector< pair< int, CirGate*>> Island;
-   vector< pair< int, CirGate*>> GateList;
    vector< int> MILOA;
    // TODO, shall have a field remaining symbol msg.
 
 
 };
 
-bool myPairIntCirGateCmp (
-    const pair< int, CirGate*>& ,
-    const pair< int, CirGate*>& ) ; 
+bool myPairIntCharCmp (
+    const pair< int, char>& ,
+    const pair< int, char>& ) ; 
 
 #endif // CIR_MGR_H
