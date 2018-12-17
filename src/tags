@@ -63,8 +63,8 @@ PIGate	cir/cirGate.h	/^    PIGate(int i): CirGate(i), _symbolMsg( "" ) {}$/;"	f	
 PIGate	cir/cirGate.h	/^class PIGate : public CirGate {$/;"	c
 PIIDList	cir/cirMgr.h	/^   vector< int > PIIDList;$/;"	m	class:CirMgr
 PI_GATE	cir/cirDef.h	/^   PI_GATE    = 1,$/;"	e	enum:GateType
-POGate	cir/cirGate.h	/^    POGate(): CirGate(), _symbolMsg("") {}$/;"	f	class:POGate
-POGate	cir/cirGate.h	/^    POGate(int i): CirGate(i), _symbolMsg( "" ) {}$/;"	f	class:POGate
+POGate	cir/cirGate.h	/^    POGate(): CirGate(), _symbolMsg(""), refGateVar(0) {}$/;"	f	class:POGate
+POGate	cir/cirGate.h	/^    POGate(int gid, int refid): CirGate(gid), _symbolMsg( "" ), refGateVar(refid ) {}$/;"	f	class:POGate
 POGate	cir/cirGate.h	/^class POGate : public CirGate {$/;"	c
 POIDList	cir/cirMgr.h	/^   vector< int > POIDList;$/;"	m	class:CirMgr
 PO_GATE	cir/cirDef.h	/^   PO_GATE    = 2,$/;"	e	enum:GateType
@@ -116,14 +116,18 @@ getGateID	cir/cirGate.h	/^    unsigned getGateID() const { return _gateID; }$/;"
 getGateRef	cir/cirGate.h	/^    size_t   getGateRef  ( )          { return _gateDFSRef ; }$/;"	f	class:CirGate
 getHashSize	util/util.cpp	/^size_t getHashSize(size_t s) {$/;"	f
 getInvert	cir/cirGate.cpp	/^getInvert( const size_t& s) { $/;"	f
+getInvert	cir/cirGate.cpp	/^getInvert( const void * const ptr ) {$/;"	f
 getLineNo	cir/cirGate.h	/^    unsigned getLineNo() const { return _lineNo; }$/;"	f	class:CirGate
 getNonInv	cir/cirGate.cpp	/^getNonInv( const size_t& s ) {$/;"	f
+getNonInv	cir/cirGate.cpp	/^getNonInv( const void * const ptr ) {$/;"	f
 getPtr	cir/cirGate.cpp	/^getPtr( size_t s ) {$/;"	f
+getRefGateVar	cir/cirGate.h	/^    int            getRefGateVar() const { return refGateVar; }$/;"	f	class:POGate
 getTypeStr	cir/cirGate.h	/^    virtual  string getTypeStr() const { return "base"; }$/;"	f	class:CirGate
+getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr()    const { return "PO"; }$/;"	f	class:POGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PI"; }$/;"	f	class:PIGate
-getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PO"; }$/;"	f	class:POGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const {$/;"	f	class:AAGate
 getXorInv	cir/cirGate.cpp	/^getXorInv( const size_t& s ) {$/;"	f
+getXorInv	cir/cirGate.cpp	/^getXorInv( const void * const ptr ) {$/;"	f
 globalDFSRef	cir/cirMgr.h	/^   size_t    globalDFSRef;$/;"	m	class:CirMgr
 help	cir/cirCmd.cpp	/^CirGateCmd::help() const$/;"	f	class:CirGateCmd
 help	cir/cirCmd.cpp	/^CirPrintCmd::help() const$/;"	f	class:CirPrintCmd
@@ -161,6 +165,7 @@ printPIs	cir/cirMgr.cpp	/^CirMgr::printPIs() const$/;"	f	class:CirMgr
 printPOs	cir/cirMgr.cpp	/^CirMgr::printPOs() const$/;"	f	class:CirMgr
 printSummary	cir/cirMgr.cpp	/^CirMgr::printSummary() const$/;"	f	class:CirMgr
 readCircuit	cir/cirMgr.cpp	/^CirMgr::readCircuit(const string& fileName)$/;"	f	class:CirMgr
+refGateVar	cir/cirGate.h	/^    int    refGateVar;$/;"	m	class:POGate
 removeData	util/util.h	/^void removeData(T& l, const D& d)$/;"	f
 report	util/myUsage.h	/^   void report(bool repTime, bool repMem) {$/;"	f	class:MyUsage
 reportFanin	cir/cirGate.cpp	/^CirGate::reportFanin(int level) const$/;"	f	class:CirGate

@@ -159,6 +159,7 @@ CirMgr::readCircuit(const string& fileName)
   myfile.open( fileName, fstream::in );
   string    tmp_str, tmp_str1, tmp_str2;
   int       ss_pos         = 0;
+  int       PO_start_id    = 0;
   unsigned  line_count     = 0;
   unsigned  line_count_bak = 0;
   MILOA.reserve(5);
@@ -172,7 +173,8 @@ CirMgr::readCircuit(const string& fileName)
     MILOA.push_back( j);
   }
 
-  line_count = 2;
+  line_count  = 2;
+  PO_start_id = MILOA[0] + 1;
   for( int i = 0; i < MILOA[1]; ++i ) { // I
     // set definedList;
     getline( myfile, tmp_str );
@@ -181,7 +183,7 @@ CirMgr::readCircuit(const string& fileName)
 
     // set GateList
     auto ptr = new PIGate( id);
-    if( GateList.insert( pair< int, CirGate* > ( id, ptr ) )
+    if( GateList.insert( make_pair( id, ptr ) )
        .second == false ){
       // insertion failure.
       delete ptr;
@@ -199,21 +201,28 @@ CirMgr::readCircuit(const string& fileName)
   for( int i = 0; i < MILOA[3]; ++i ) { // O
     // set usedList
     getline( myfile, tmp_str );
-    int id  = stoi( tmp_str, nullptr, 10 )/2;
-    usedList.insert( id );
+    int id  = stoi( tmp_str, nullptr, 10 );
+    usedList.insert( id/2 );
+    // remark: to store inv info for PO,
+    // "int id" is not an gate id, but an gate var.
 
     // set GateList
-    auto ptr = new POGate( id);
-    if( GateList.insert( pair< int, CirGate* > ( id, ptr ) )
+    auto ptr = new POGate( PO_start_id, id );
+    if( GateList.insert( make_pair( PO_start_id, ptr ) )
        .second == false ){
       // insertion failure.
+      // shall not happen though.
+#ifdef DEBUG
+      assert( 0 && "MILOA is broken, maybe M too small?" );
+#endif
       delete ptr;
       ptr = nullptr;
     }else {
       ptr -> setLineCnt( line_count );
-      POIDList.push_back( id );
+      POIDList.push_back( PO_start_id );
     }
     ++line_count;
+    ++PO_start_id;
   }
 
   // back up start position of A of MILOA
@@ -229,7 +238,7 @@ CirMgr::readCircuit(const string& fileName)
     definedList.insert( id );
 
     auto ptr       = new AAGate( id, true );
-    auto ret_pair = GateList.insert( pair< int, CirGate* > ( id, ptr ));
+    auto ret_pair = GateList.insert( make_pair( id, ptr ));
     ptr -> setLineCnt( line_count );
     if( ret_pair . second == false ){
       // insertion failure.
@@ -242,7 +251,6 @@ CirMgr::readCircuit(const string& fileName)
       }
     }
 
-    ptr = nullptr;
     id = stoi( tmp_str1, nullptr, 10 ) /2 ;
     usedList.insert( id );
     ret_pair = GateList.insert( make_pair( id, nullptr ));
@@ -285,10 +293,13 @@ CirMgr::readCircuit(const string& fileName)
 #endif
                auto ptr = new AAGate( p.first, false);
                p.second = ptr;
+               if( p.first == 0 )
+                 ptr -> setDefined ();
+               // CONST0 is always defined.
              } 
            });
 
-  // routing.
+  // routing AAG.
   myfile.clear();
   myfile.seekg( ss_pos );
   for( int i = 0; i < MILOA[4]; ++i ) { // A
@@ -331,6 +342,22 @@ CirMgr::readCircuit(const string& fileName)
       reinterpret_cast<size_t> ( itorg -> second ) );
     itor2 -> second -> insertChild ( 
       reinterpret_cast<size_t> ( itorg -> second ) );
+  }
+  
+  // routing PO
+  for( auto it : POIDList ){
+#ifdef DEBUG
+    assert( GateList.find(it)->second->getTypeStr() == "PO" );
+#endif
+    POGate* tmp_PO_ptr = 
+      reinterpret_cast<POGate*> ( GateList.find( it)->second );
+    auto*   tmp_refG_ptr = 
+      GateList.find( tmp_PO_ptr -> getRefGateVar()/2 )->second;
+    tmp_PO_ptr -> _parent[0] =
+      ( isInverted( tmp_PO_ptr->getRefGateVar() ) )?
+      ( getInvert(  tmp_refG_ptr ) ):
+      ( getNonInv(  tmp_refG_ptr ) );
+    tmp_PO_ptr -> _parent[1] = 0;
   }
 
   buildDFSList();
@@ -439,6 +466,6 @@ CirMgr::DFS( CirGate* ptr , int depth ){
       }
     }
   }
-  DFSList.push_back( pair<CirGate*,int>(ptr, depth ));
+  DFSList.push_back( make_pair(ptr, depth ));
   return true;
 }

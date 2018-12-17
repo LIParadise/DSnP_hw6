@@ -128,7 +128,7 @@ AAGate::printGate() const {
   if( getGateID() == 0 )
     cout << "CONST0";
   else{
-    cout << "AAG " << getGateID();
+    cout << "AAG " << getGateID() << ' ';
     if( isInverted( _parent[0] ))
       cout << '!';
     cout << getPtr( getNonInv( _parent[0] )) -> getGateID();
@@ -139,3 +139,17 @@ AAGate::printGate() const {
   }
 }
 
+size_t
+getInvert( const void * const ptr ) {
+  return getInvert( reinterpret_cast<size_t> (ptr) );
+}
+
+size_t
+getNonInv( const void * const ptr ) {
+  return getNonInv( reinterpret_cast<size_t> (ptr) );
+}
+
+size_t
+getXorInv( const void * const ptr ) {
+  return getXorInv( reinterpret_cast<size_t> (ptr) );
+}

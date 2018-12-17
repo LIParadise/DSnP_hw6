@@ -69,12 +69,14 @@ class CirGate
 
 class POGate : public CirGate {
   public:
-    POGate(): CirGate(), _symbolMsg("") {}
-    POGate(int i): CirGate(i), _symbolMsg( "" ) {}
-    virtual string getTypeStr() const { return "PO"; }
+    POGate(): CirGate(), _symbolMsg(""), refGateVar(0) {}
+    POGate(int gid, int refid): CirGate(gid), _symbolMsg( "" ), refGateVar(refid ) {}
+    virtual string getTypeStr()    const { return "PO"; }
+    int            getRefGateVar() const { return refGateVar; }
     virtual void printGate() const ;
   private:
     string _symbolMsg;
+    int    refGateVar;
 };
 class PIGate : public CirGate {
   public:
@@ -104,6 +106,9 @@ class AAGate : public CirGate {
 size_t   getInvert  ( const size_t& ) ;
 size_t   getNonInv  ( const size_t& ) ;
 size_t   getXorInv  ( const size_t& ) ;
+size_t   getInvert  ( const void* const ) ;
+size_t   getNonInv  ( const void* const ) ;
+size_t   getXorInv  ( const void* const ) ;
 bool     isInverted ( const size_t ) ;
 bool     isInverted ( const unsigned ) ;
 bool     isInverted ( const int ) ;
