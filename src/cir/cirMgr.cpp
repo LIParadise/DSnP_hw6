@@ -397,6 +397,7 @@ CirMgr::printSummary() const
 void
 CirMgr::printNetlist() const
 {
+  cout << endl;
   size_t idx = 0;
   for( auto it : DFSList ){
     cout << '[' << idx << "] ";

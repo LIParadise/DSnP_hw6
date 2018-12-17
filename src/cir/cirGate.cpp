@@ -112,6 +112,10 @@ CirGate::setLineCnt( unsigned u){
 void
 POGate::printGate() const {
   cout << "PO  " << getGateID();
+  cout << ' ';
+  if( isInverted( getRefGateVar() ) )
+    cout << '!' ;
+  cout << getRefGateVar()/2 ;
   if( _symbolMsg != "" )
     cout << "  (" << _symbolMsg << ')';
 }
