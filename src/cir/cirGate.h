@@ -45,11 +45,13 @@ class CirGate
     pair< set<size_t>::iterator, bool> insertParent( size_t );
     set<size_t>::iterator findChild                ( size_t ) const;
     set<size_t>::iterator findParent               ( size_t ) const;
-    CirGate* getPtr    ( size_t  ) const ;
-    bool     isInverted( size_t  ) const ;
-    void     setInvert ( size_t& ) const ;
-    void     setNonInv ( size_t& ) const ;
-    void     setXorInv ( size_t& ) const ;
+    CirGate* getPtr     ( size_t  ) const ;
+    bool     isInverted ( size_t  ) const ;
+    void     setInvert  ( size_t& ) const ;
+    void     setNonInv  ( size_t& ) const ;
+    void     setXorInv  ( size_t& ) const ;
+    void     setLineCnt ( unsigned )      ;
+    void     setGateId  ( unsigned )      ;
 
   private:
 
@@ -80,16 +82,17 @@ class PIGate : public CirGate {
 };
 class AAGate : public CirGate {
   public:
-    AAGate(): CirGate(), isDefined(true) {}
-    AAGate(bool boolean): CirGate(), isDefined(boolean) {}
+    AAGate(): CirGate(), _IsDefined(true) {}
+    AAGate(bool boolean): CirGate(), _IsDefined(boolean) {}
     virtual string getTypeStr() const {
-      return (  (isDefined)? "AAG" : "UNDEF" );
+      return (  (_IsDefined)? "AAG" : "UNDEF" );
     }
-    void setDefined() { isDefined = true; }
-    void setUNDEF() { isDefined = false; }
+    void setDefined() { _IsDefined = true; }
+    void setUNDEF() { _IsDefined = false; }
+    bool isDefined() const { return _IsDefined; }
     virtual void printGate() const ;
   private:
-    bool isDefined;
+    bool _IsDefined;
 };
 
 #endif // CIR_GATE_H

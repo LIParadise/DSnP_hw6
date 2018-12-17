@@ -157,9 +157,11 @@ CirMgr::readCircuit(const string& fileName)
 {
   fstream myfile;
   myfile.open( fileName, fstream::in );
-  string tmp_str;
-  string tmp_str1, tmp_str2;
-  int    ss_pos = 0;
+  string    tmp_str, tmp_str1, tmp_str2;
+  int       ss_pos         = 0;
+  unsigned  line_count     = 0;
+  unsigned  line_count_bak = 0;
+  auto      GLItor         = GateList.begin();
   MILOA.reserve(5);
 
   getline( myfile, tmp_str ); // string; "aag MILOA";
@@ -171,16 +173,19 @@ CirMgr::readCircuit(const string& fileName)
     MILOA.push_back( j);
   }
 
+  line_count = 2;
   for( int i = 0; i < MILOA[1]; ++i ) { // I
     getline( myfile, tmp_str );
     PIGate* ptr = new PIGate();
     int     id  = stoi( tmp_str, nullptr, 10 )/2;
     lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
     PIList.push_back( pair<int, CirGate*> ( id, ptr ) );
-
+    ptr -> setLineCnt( line_count );
+    line_count ++;
   }
   for( int i = 0; i < MILOA[2]; ++i ) { // L
     getline( myfile, tmp_str );
+    line_count ++;
   }
   for( int i = 0; i < MILOA[3]; ++i ) { // O
     getline( myfile, tmp_str );
@@ -188,15 +193,24 @@ CirMgr::readCircuit(const string& fileName)
     int     id  = stoi( tmp_str, nullptr, 10 )/2;
     lhsID.insert( pair<int, CirGate* > ( id, ptr ) );
     POList.push_back( pair<int, CirGate*> ( id, ptr ) );
+    ptr -> setLineCnt( line_count );
+    line_count ++;
   }
+
+  // back up start position of A of MILOA
   ss_pos = myfile.tellg();
+  line_count_bak = line_count;
+
   for( int i = 0; i < MILOA[4]; ++i ) { // A
     getline( myfile, tmp_str );
     stringstream ss ( tmp_str );
     ss >> tmp_str;
+    AAGate* ptr = new AAGate(true);
+    ptr -> setLineCnt( line_count );
     lhsID.insert( pair< int, CirGate* > (
           stoi( tmp_str, nullptr, 10) /2 ,
-          new AAGate(true) ) );
+          ptr ) );
+    line_count ++;
 
     ss >> tmp_str;
     rhsID.insert( pair< int, CirGate* > (
@@ -250,9 +264,12 @@ CirMgr::readCircuit(const string& fileName)
     int gid = stoi( tmp_str, nullptr, 10 );
     int id1 = stoi( tmp_str, nullptr, 10 );
     int id2 = stoi( tmp_str, nullptr, 10 );
+
     // aag(gid) is based on id1, id2.
     // set id1 to have child gid.
     // set id2 to have child gid.
+    gid = gid / 2;
+    GLItor = GateList.find( gid );
   }
 
   return true;
