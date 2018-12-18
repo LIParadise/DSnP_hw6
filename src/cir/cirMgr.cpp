@@ -361,6 +361,9 @@ CirMgr::readCircuit(const string& fileName)
       ( getInvert(  tmp_refG_ptr ) ):
       ( getNonInv(  tmp_refG_ptr ) );
     tmp_PO_ptr -> _parent[1] = 0;
+
+    tmp_refG_ptr -> insertChild( 
+      reinterpret_cast<size_t>(tmp_PO_ptr ));
   }
 
   buildDFSList();
@@ -514,7 +517,7 @@ CirMgr::DFS( CirGate* ptr , unsigned depth ){
         return false;
     }
   }
-  if( ptr -> getTypeStr() != "UNDEF" )
+  if( ptr -> isDefined() )
     DFSList.push_back( make_pair(ptr, depth ));
   return true;
 }
@@ -522,11 +525,8 @@ CirMgr::DFS( CirGate* ptr , unsigned depth ){
 CirGate*
 CirMgr::getGate( unsigned gid ) const {
   auto tmp_pair_itor = GateList.find( gid );
-  if( tmp_pair_itor  != GateList.end() ){
-    if( !(tmp_pair_itor -> second -> isDefined()) )
-      return nullptr;
-    else
+  if( tmp_pair_itor  != GateList.end() )
       return tmp_pair_itor -> second;
-  }else
+  else
     return nullptr;
 }
