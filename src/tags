@@ -81,14 +81,15 @@ UNDEF_GATE	cir/cirDef.h	/^   UNDEF_GATE = 0,$/;"	e	enum:GateType
 UTIL_H	util/util.h	9;"	d
 UnDefinedList	cir/cirMgr.h	/^   vector< unsigned > UnDefinedList;$/;"	m	class:CirMgr
 _IsDefined	cir/cirGate.h	/^    bool             _IsDefined;$/;"	m	class:CirGate
-_active	cir/cirGate.h	/^    bool             _active;$/;"	m	class:CirGate
+_active	cir/cirGate.h	/^    bool                    _active;$/;"	m	class:CirGate
 _child	cir/cirGate.h	/^    set<size_t>       _child;$/;"	m	class:CirGate
 _currentMem	util/myUsage.h	/^   double     _currentMem;$/;"	m	class:MyUsage
 _currentTick	util/myUsage.h	/^   double     _currentTick;$/;"	m	class:MyUsage
-_gateDFSRef	cir/cirGate.h	/^    size_t           _gateDFSRef;$/;"	m	class:CirGate
-_gateID	cir/cirGate.h	/^    unsigned         _gateID;$/;"	m	class:CirGate
+_gateDFSRef	cir/cirGate.h	/^    size_t                  _gateDFSRef;$/;"	m	class:CirGate
+_gateID	cir/cirGate.h	/^    unsigned                _gateID;$/;"	m	class:CirGate
+_haveMetBefore	cir/cirGate.h	/^    static set<unsigned>    _haveMetBefore;$/;"	m	class:CirGate
 _initMem	util/myUsage.h	/^   double     _initMem;$/;"	m	class:MyUsage
-_lineNo	cir/cirGate.h	/^    unsigned         _lineNo;$/;"	m	class:CirGate
+_lineNo	cir/cirGate.h	/^    unsigned                _lineNo;$/;"	m	class:CirGate
 _parent	cir/cirGate.h	/^    size_t            _parent[2];$/;"	m	class:CirGate
 _periodUsedTime	util/myUsage.h	/^   double     _periodUsedTime;$/;"	m	class:MyUsage
 _symbolMsg	cir/cirGate.h	/^    string           _symbolMsg;$/;"	m	class:CirGate
@@ -171,6 +172,7 @@ readCircuit	cir/cirMgr.cpp	/^CirMgr::readCircuit(const string& fileName)$/;"	f	c
 refGateVar	cir/cirGate.h	/^    int    refGateVar;$/;"	m	class:POGate
 removeData	util/util.h	/^void removeData(T& l, const D& d)$/;"	f
 report	util/myUsage.h	/^   void report(bool repTime, bool repMem) {$/;"	f	class:MyUsage
+reportFanin	cir/cirGate.cpp	/^CirGate::reportFanin( int total_level, int indent, bool print_exclam ) const {$/;"	f	class:CirGate
 reportFanin	cir/cirGate.cpp	/^CirGate::reportFanin(int level) const$/;"	f	class:CirGate
 reportFanout	cir/cirGate.cpp	/^CirGate::reportFanout(int level) const$/;"	f	class:CirGate
 reportGate	cir/cirGate.cpp	/^CirGate::reportGate() const$/;"	f	class:CirGate

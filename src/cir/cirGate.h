@@ -41,8 +41,10 @@ class CirGate
     // Printing functions
     virtual void printGate() const = 0;
     void reportGate() const;
-    void reportFanin(int level) const;
-    void reportFanout(int level) const;
+    void reportFanin   (int) const;
+    void reportFanout  (int) const;
+    void reportFanin   (int, int, bool)  const;
+    void reportFanout  (int, int, bool)  const;
 
     // public helpers.
     pair< set<size_t>::iterator, bool> insertChild ( size_t );
@@ -62,10 +64,13 @@ class CirGate
 
   private:
 
-    bool             _active;
-    unsigned         _lineNo;
-    unsigned         _gateID;
-    size_t           _gateDFSRef;
+    bool                    _active;
+    unsigned                _lineNo;
+    unsigned                _gateID;
+    size_t                  _gateDFSRef;
+
+    // helper for reportFanin
+    static set<unsigned>    _haveMetBefore;
 
   protected:
     CirGate( int i , bool b) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0), _IsDefined( b ), _symbolMsg("") {}
