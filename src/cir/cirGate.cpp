@@ -101,13 +101,14 @@ CirGate::reportFanout(int level) const
 {
    assert (level >= 0);
    _haveMetBefore.clear();
-   reportFanout( level+1, 0, false );
+   reportFanout( level+1, 0, 0 );
 }
 
 void
-CirGate::reportFanout( int total_level, int indent, bool print_exclam ) const {
+CirGate::reportFanout( int total_level, int indent, size_t parent_ptr ) const {
 
-  auto itor = _haveMetBefore . find( getGateID() );
+  auto   itor = _haveMetBefore . find( getGateID() );
+  size_t parent_with_inv_info = findParent( parent_ptr );
 
   if( !( indent < total_level ) ){
     return;
@@ -115,8 +116,9 @@ CirGate::reportFanout( int total_level, int indent, bool print_exclam ) const {
 
   for( int i = 0; i < indent*2; ++i )
     cout << ' ';
-  if( print_exclam )
-    cout << '!';
+  if( parent_with_inv_info && parent_ptr != 0 )
+    if( isInverted( parent_with_inv_info ) )
+      cout << '!';
   if( getGateID() != 0 )
     cout << getTypeStr() << ' ' << getGateID();
   else
@@ -132,7 +134,8 @@ CirGate::reportFanout( int total_level, int indent, bool print_exclam ) const {
 
   for( auto it : _child )
     getPtr( it ) ->
-      reportFanout( total_level, indent+1, false );
+      reportFanout( total_level, indent+1, 
+          reinterpret_cast<size_t>(this) );
 
   if( indent < total_level && ! _child.empty() )
     _haveMetBefore.insert( getGateID() );
@@ -189,15 +192,15 @@ CirGate::findChild( size_t s ) const{
   return _child.find( getNonInv(s) );
 }
 
-int
+size_t
 CirGate::findParent( size_t s ) const{
   // _parent contains inv info.
   if( _parent[0] == s || _parent[0] == getXorInv(s) )
-    return 0;
+    return _parent[0];
   else if( _parent[1] == s || _parent[1] == getXorInv(s) )
-    return 1;
+    return _parent[1];
   else
-    return -1;
+    return 0;
 }
 
 void

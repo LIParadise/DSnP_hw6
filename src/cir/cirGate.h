@@ -44,12 +44,12 @@ class CirGate
     void reportFanin   (int) const;
     void reportFanout  (int) const;
     void reportFanin   (int, int, bool)  const;
-    void reportFanout  (int, int, bool)  const;
+    void reportFanout  (int, int, size_t)  const;
 
     // public helpers.
     pair< set<size_t>::iterator, bool> insertChild ( size_t );
     set<size_t>::iterator findChild                ( size_t ) const;
-    int                   findParent               ( size_t ) const;
+    size_t                findParent               ( size_t ) const;
     void     setLineCnt  ( unsigned )      ;
     void     setGateId   ( unsigned )      ;
     void     setGateRef  ( size_t s ) { _gateDFSRef = s ; }
