@@ -133,10 +133,17 @@ AAGate::printGate() const {
     cout << "CONST0";
   else{
     cout << "AIG " << getGateID() << ' ';
+
+    if( getPtr( _parent[0] ) -> getTypeStr() == "UNDEF" )
+      cout << '*';
     if( isInverted( _parent[0] ))
       cout << '!';
-    cout << getPtr( getNonInv( _parent[0] )) -> getGateID();
+    cout << getPtr( _parent[0] ) -> getGateID();
+
     cout << ' ';
+
+    if( getPtr( _parent[1] ) -> getTypeStr() == "UNDEF" )
+      cout << '*';
     if( isInverted( _parent[1] ))
       cout << '!';
     cout << getPtr( getNonInv( _parent[1] )) -> getGateID();

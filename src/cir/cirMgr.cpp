@@ -510,6 +510,7 @@ CirMgr::DFS( CirGate* ptr , int depth ){
         return false;
     }
   }
-  DFSList.push_back( make_pair(ptr, depth ));
+  if( ptr -> getTypeStr() != "UNDEF" )
+    DFSList.push_back( make_pair(ptr, depth ));
   return true;
 }
