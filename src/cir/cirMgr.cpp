@@ -404,15 +404,15 @@ CirMgr::readCircuit(const string& fileName)
 
   for( int i = 0; i < MILOA[1]; ++i ){ // I
     getline( myfile, tmp_str );
-    output_bak.push_back( move(tmp_str) );
+    output_bak.push_back( tmp_str );
   }
   for( int i = 0; i < MILOA[2]; ++i ) { // L
     getline( myfile, tmp_str );
-    output_bak.push_back( move(tmp_str) );
+    output_bak.push_back( tmp_str );
   }
   for( int i = 0; i < MILOA[3]; ++i ) { // O
     getline( myfile, tmp_str );
-    output_bak.push_back( move(tmp_str) );
+    output_bak.push_back( tmp_str );
   }
   unsigned tmp_AIG_id = 0;
   for( int i = 0; i < MILOA[3]; ++i ){ // A
@@ -420,14 +420,16 @@ CirMgr::readCircuit(const string& fileName)
     output_ss.str( tmp_str );
     output_ss >> tmp_AIG_id;
     if( GateList.find( tmp_AIG_id ) != GateList.end() )
-      output_bak.push_back( move( tmp_str ) );
+      output_bak.push_back(  tmp_str );
   }
+
+
   for( auto it : PIIDList ){
     tmp_str = 'i';
     tmp_str1 = GateList.find(it) -> second -> getSymbolMsg();
     if( tmp_str1 != "" ){
       tmp_str = tmp_str + to_string( it) + ' ' + tmp_str1;
-      output_bak.push_back( move( tmp_str ));
+      output_bak.push_back(  tmp_str);
     }
   }
   for( auto it : POIDList ){
@@ -435,7 +437,7 @@ CirMgr::readCircuit(const string& fileName)
     tmp_str1 = GateList.find(it) -> second -> getSymbolMsg();
     if( tmp_str1 != "" ){
       tmp_str = tmp_str + to_string( it) + ' ' + tmp_str1;
-      output_bak.push_back( move( tmp_str ));
+      output_bak.push_back(  tmp_str);
     }
   }
 
