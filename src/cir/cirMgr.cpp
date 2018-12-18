@@ -442,6 +442,25 @@ CirMgr::printPOs() const
 void
 CirMgr::printFloatGates() const
 {
+  cout << "Gates with floating fanin(s):";
+  // TODO, we only stored gates of UnDefinedList...
+  // "set<int> CirGate::_child" contain no inv info.
+  map< int, size_t > tmp_map;
+  for( auto it : UnDefinedList ){
+    CirGate* ptr   = GateList.find( it ) -> second;
+    for( auto it1 : ptr -> _child ){
+      tmp_map.insert( make_pair( 
+          it1, getPtr( it1 ) -> getGateID() ) );
+    }
+  }
+  for( auto it : tmp_map ){
+  }
+  cout << endl;
+  cout << "Gates defined but not used  :";
+  for( auto it : DefButNUsedList ){
+    cout << ' ' << it;
+  }
+  cout << endl;
 }
 
 void
