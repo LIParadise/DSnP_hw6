@@ -70,6 +70,7 @@ private:
    // TODO, shall have a field remaining symbol msg.
 
    vector< pair<CirGate*, unsigned> > DFSList;
+   vector< string>                    output_bak;
 
 };
 

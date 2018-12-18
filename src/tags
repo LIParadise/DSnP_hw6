@@ -159,6 +159,7 @@ my_random	util/rnGen.h	17;"	d
 my_srandom	util/rnGen.h	16;"	d
 myexit	main/main.cpp	/^myexit()$/;"	f	file:
 operator ()	util/rnGen.h	/^      const int operator() (const int range) const {$/;"	f	class:RandomNumGen
+output_bak	cir/cirMgr.h	/^   vector< string>                    output_bak;$/;"	m	class:CirMgr
 parseError	cir/cirMgr.cpp	/^parseError(CirParseError err)$/;"	f	file:
 printFloatGates	cir/cirMgr.cpp	/^CirMgr::printFloatGates() const$/;"	f	class:CirMgr
 printGate	cir/cirGate.cpp	/^AAGate::printGate() const {$/;"	f	class:AAGate

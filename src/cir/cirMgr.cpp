@@ -366,8 +366,78 @@ CirMgr::readCircuit(const string& fileName)
       reinterpret_cast<size_t>(tmp_PO_ptr ));
   }
 
+  // set symbol;
+  while( getline( myfile, tmp_str ) ){
+    tmp_sstr.str( tmp_str );
+    tmp_sstr >> tmp_str1;
+    if( tmp_str1[0] == 'i' ){
+      tmp_str1.erase( 0);
+      getline( tmp_sstr, tmp_str2 );
+      GateList.find( PIIDList.at(stoi( tmp_str1, nullptr, 10 ) ) )
+        -> second -> setSymbolMsg( tmp_str2 ) ;
+    } else if( tmp_str1[0] == 'o' ){
+      tmp_str1.erase(0 );
+      getline( tmp_sstr, tmp_str2 );
+      GateList.find( POIDList.at( stoi( tmp_str1, nullptr, 10 ) ) )
+        -> second -> setSymbolMsg( tmp_str2 );
+    } else{
+      break;
+    }
+  }
+
   buildDFSList();
   // optional TODO: report cyclic.
+
+  output_bak.clear();
+  myfile.clear();
+  myfile.seekg( ios_base:: beg );
+
+  getline( myfile, tmp_str );
+  stringstream output_ss;
+
+  output_bak . push_back ( "" );
+  output_bak[0] = "aag " + to_string( MILOA[0] ) + ' '
+    + to_string( MILOA[1] ) + ' '
+    + to_string( MILOA[2] ) + ' '
+    + to_string( MILOA[3] ) + ' '
+    + to_string( MILOA[4] );
+
+  for( int i = 0; i < MILOA[1]; ++i ){ // I
+    getline( myfile, tmp_str );
+    output_bak.push_back( move(tmp_str) );
+  }
+  for( int i = 0; i < MILOA[2]; ++i ) { // L
+    getline( myfile, tmp_str );
+    output_bak.push_back( move(tmp_str) );
+  }
+  for( int i = 0; i < MILOA[3]; ++i ) { // O
+    getline( myfile, tmp_str );
+    output_bak.push_back( move(tmp_str) );
+  }
+  unsigned tmp_AIG_id = 0;
+  for( int i = 0; i < MILOA[3]; ++i ){ // A
+    getline( myfile, tmp_str );
+    output_ss.str( tmp_str );
+    output_ss >> tmp_AIG_id;
+    if( GateList.find( tmp_AIG_id ) != GateList.end() )
+      output_bak.push_back( move( tmp_str ) );
+  }
+  for( auto it : PIIDList ){
+    tmp_str = 'i';
+    tmp_str1 = GateList.find(it) -> second -> getSymbolMsg();
+    if( tmp_str1 != "" ){
+      tmp_str = tmp_str + to_string( it) + ' ' + tmp_str1;
+      output_bak.push_back( move( tmp_str ));
+    }
+  }
+  for( auto it : POIDList ){
+    tmp_str = 'o';
+    tmp_str1 = GateList.find(it) -> second -> getSymbolMsg();
+    if( tmp_str1 != "" ){
+      tmp_str = tmp_str + to_string( it) + ' ' + tmp_str1;
+      output_bak.push_back( move( tmp_str ));
+    }
+  }
 
   return true;
 }
@@ -475,6 +545,8 @@ CirMgr::printFloatGates() const
 void
 CirMgr::writeAag(ostream& outfile) const
 {
+  for( auto it : output_bak )
+    outfile << it << '\n';
 }
 
 bool
