@@ -31,7 +31,7 @@ public:
 
    // Access functions
    // return '0' if "gid" corresponds to an undefined gate.
-   CirGate* getGate(unsigned gid) const { return 0; }
+   CirGate* getGate(unsigned ) const ;
 
    // Member functions about circuit construction
    bool readCircuit(const string&);
@@ -48,33 +48,33 @@ private:
 
    // helper functions
    bool buildDFSList () ;
-   bool DFS          ( CirGate*, int = 0 ) ;
+   bool DFS          ( CirGate*, unsigned = 0 ) ;
    void clearGate    () ;
 
    // helper data fields
-   set<int>  definedList;
+   set<unsigned>  definedList;
    // PI, AAG.
-   set<int>  usedList;
+   set<unsigned>  usedList;
    // PO, fanin of AAG.
    size_t    globalDFSRef;
 
-   vector< int > DefButNUsedList;
-   vector< int > UnDefinedList;
+   vector< unsigned > DefButNUsedList;
+   vector< unsigned > UnDefinedList;
 
-   map< int, CirGate* > GateList;
+   map< unsigned, CirGate* > GateList;
 
-   vector< int > PIIDList;
-   vector< int > POIDList;
-   vector< pair< int, CirGate*>> Island;
-   vector< int> MILOA;
+   vector< unsigned > PIIDList;
+   vector< unsigned > POIDList;
+   vector< pair< unsigned, CirGate*>> Island;
+   vector< unsigned> MILOA;
    // TODO, shall have a field remaining symbol msg.
 
-   vector< pair<CirGate*, int> > DFSList;
+   vector< pair<CirGate*, unsigned> > DFSList;
 
 };
 
-bool myPairIntCharCmp (
-    const pair< int, char>& ,
-    const pair< int, char>& ) ; 
+bool myPairUnsignedCharCmp (
+    const pair< unsigned, char>& ,
+    const pair< unsigned, char>& ) ; 
 
 #endif // CIR_MGR_H

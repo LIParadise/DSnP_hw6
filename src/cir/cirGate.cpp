@@ -28,6 +28,16 @@ extern CirMgr *cirMgr;
 void
 CirGate::reportGate() const
 {
+  cout << endl;
+  cout << "==================================================" << endl;
+  if( getGateID() != 0 )
+    cout << " = " << getTypeStr() << '(' << getGateID() << ')' ;
+  else
+    cout << " = " << "CONST(0)";
+  if( getSymbolMsg() != "" )
+    cout << '\"' << getSymbolMsg() << '\"';
+  cout << ", line " << getLineNo() << endl;
+  cout << "==================================================" << endl;
 }
 
 void

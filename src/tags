@@ -4,9 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-AAGate	cir/cirGate.h	/^    AAGate(): CirGate(), _IsDefined(true) {}$/;"	f	class:AAGate
-AAGate	cir/cirGate.h	/^    AAGate(bool boolean): CirGate(), _IsDefined(boolean) {}$/;"	f	class:AAGate
-AAGate	cir/cirGate.h	/^    AAGate(int i, bool boolean) : CirGate(i), _IsDefined( boolean ) {}$/;"	f	class:AAGate
+AAGate	cir/cirGate.h	/^    AAGate(): CirGate(0, true) {}$/;"	f	class:AAGate
+AAGate	cir/cirGate.h	/^    AAGate(bool boolean): CirGate(0, boolean) {}$/;"	f	class:AAGate
+AAGate	cir/cirGate.h	/^    AAGate(int i, bool boolean) : CirGate(i, boolean) {}$/;"	f	class:AAGate
 AAGate	cir/cirGate.h	/^class AAGate : public CirGate {$/;"	c
 AIG_GATE	cir/cirDef.h	/^   AIG_GATE   = 3,$/;"	e	enum:GateType
 CANNOT_INVERTED	cir/cirMgr.cpp	/^   CANNOT_INVERTED,$/;"	e	enum:CirParseError	file:
@@ -19,8 +19,9 @@ CIR_GATE_H	cir/cirGate.h	10;"	d
 CIR_MGR_H	cir/cirMgr.h	10;"	d
 CONST_GATE	cir/cirDef.h	/^   CONST_GATE = 4,$/;"	e	enum:GateType
 CirCmdState	cir/cirCmd.cpp	/^enum CirCmdState$/;"	g	file:
-CirGate	cir/cirGate.h	/^    CirGate(): _parent{0}, _active(false), _lineNo(0), _gateID(0), _gateDFSRef(0) {}$/;"	f	class:CirGate
-CirGate	cir/cirGate.h	/^    CirGate(int i) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0) {}$/;"	f	class:CirGate
+CirGate	cir/cirGate.h	/^    CirGate( int i , bool b) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0), _IsDefined( b ), _symbolMsg("") {}$/;"	f	class:CirGate
+CirGate	cir/cirGate.h	/^    CirGate(): _parent{0}, _active(false), _lineNo(0), _gateID(0), _gateDFSRef(0), _IsDefined(true), _symbolMsg("") {}$/;"	f	class:CirGate
+CirGate	cir/cirGate.h	/^    CirGate(int i) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0), _IsDefined(true ), _symbolMsg("") {}$/;"	f	class:CirGate
 CirGate	cir/cirGate.h	/^class CirGate$/;"	c
 CirGateCmd	cir/cirCmd.h	/^CmdClass(CirGateCmd);$/;"	v
 CirMgr	cir/cirMgr.h	/^   CirMgr(): globalDFSRef(0)  {}$/;"	f	class:CirMgr
@@ -29,13 +30,13 @@ CirParseError	cir/cirMgr.cpp	/^enum CirParseError {$/;"	g	file:
 CirPrintCmd	cir/cirCmd.h	/^CmdClass(CirPrintCmd);$/;"	v
 CirReadCmd	cir/cirCmd.h	/^CmdClass(CirReadCmd);$/;"	v
 CirWriteCmd	cir/cirCmd.h	/^CmdClass(CirWriteCmd);$/;"	v
-DFS	cir/cirMgr.cpp	/^CirMgr::DFS( CirGate* ptr , int depth ){$/;"	f	class:CirMgr
-DFSList	cir/cirMgr.h	/^   vector< pair<CirGate*, int> > DFSList;$/;"	m	class:CirMgr
+DFS	cir/cirMgr.cpp	/^CirMgr::DFS( CirGate* ptr , unsigned depth ){$/;"	f	class:CirMgr
+DFSList	cir/cirMgr.h	/^   vector< pair<CirGate*, unsigned> > DFSList;$/;"	m	class:CirMgr
 DUMMY_END	cir/cirMgr.cpp	/^   DUMMY_END$/;"	e	enum:CirParseError	file:
-DefButNUsedList	cir/cirMgr.h	/^   vector< int > DefButNUsedList;$/;"	m	class:CirMgr
+DefButNUsedList	cir/cirMgr.h	/^   vector< unsigned > DefButNUsedList;$/;"	m	class:CirMgr
 EXTRA_SPACE	cir/cirMgr.cpp	/^   EXTRA_SPACE,$/;"	e	enum:CirParseError	file:
 GateList	cir/cirDef.h	/^typedef vector<CirGate*>           GateList;$/;"	t
-GateList	cir/cirMgr.h	/^   map< int, CirGate* > GateList;$/;"	m	class:CirMgr
+GateList	cir/cirMgr.h	/^   map< unsigned, CirGate* > GateList;$/;"	m	class:CirMgr
 GateType	cir/cirDef.h	/^enum GateType$/;"	g
 ILLEGAL_IDENTIFIER	cir/cirMgr.cpp	/^   ILLEGAL_IDENTIFIER,$/;"	e	enum:CirParseError	file:
 ILLEGAL_NUM	cir/cirMgr.cpp	/^   ILLEGAL_NUM,$/;"	e	enum:CirParseError	file:
@@ -43,9 +44,9 @@ ILLEGAL_SYMBOL_NAME	cir/cirMgr.cpp	/^   ILLEGAL_SYMBOL_NAME,$/;"	e	enum:CirParse
 ILLEGAL_SYMBOL_TYPE	cir/cirMgr.cpp	/^   ILLEGAL_SYMBOL_TYPE,$/;"	e	enum:CirParseError	file:
 ILLEGAL_WSPACE	cir/cirMgr.cpp	/^   ILLEGAL_WSPACE,$/;"	e	enum:CirParseError	file:
 IdList	cir/cirDef.h	/^typedef vector<unsigned>           IdList;$/;"	t
-Island	cir/cirMgr.h	/^   vector< pair< int, CirGate*>> Island;$/;"	m	class:CirMgr
+Island	cir/cirMgr.h	/^   vector< pair< unsigned, CirGate*>> Island;$/;"	m	class:CirMgr
 MAX_LIT_ID	cir/cirMgr.cpp	/^   MAX_LIT_ID,$/;"	e	enum:CirParseError	file:
-MILOA	cir/cirMgr.h	/^   vector< int> MILOA;$/;"	m	class:CirMgr
+MILOA	cir/cirMgr.h	/^   vector< unsigned> MILOA;$/;"	m	class:CirMgr
 MISSING_DEF	cir/cirMgr.cpp	/^   MISSING_DEF,$/;"	e	enum:CirParseError	file:
 MISSING_IDENTIFIER	cir/cirMgr.cpp	/^   MISSING_IDENTIFIER,$/;"	e	enum:CirParseError	file:
 MISSING_NEWLINE	cir/cirMgr.cpp	/^   MISSING_NEWLINE,$/;"	e	enum:CirParseError	file:
@@ -58,15 +59,15 @@ MyUsage	util/myUsage.h	/^   MyUsage() { reset(); }$/;"	f	class:MyUsage
 MyUsage	util/myUsage.h	/^class MyUsage$/;"	c
 NUM_TOO_BIG	cir/cirMgr.cpp	/^   NUM_TOO_BIG,$/;"	e	enum:CirParseError	file:
 NUM_TOO_SMALL	cir/cirMgr.cpp	/^   NUM_TOO_SMALL,$/;"	e	enum:CirParseError	file:
-PIGate	cir/cirGate.h	/^    PIGate(): CirGate(), _symbolMsg("") {}$/;"	f	class:PIGate
-PIGate	cir/cirGate.h	/^    PIGate(int i): CirGate(i), _symbolMsg( "" ) {}$/;"	f	class:PIGate
+PIGate	cir/cirGate.h	/^    PIGate(): CirGate() {}$/;"	f	class:PIGate
+PIGate	cir/cirGate.h	/^    PIGate(int i): CirGate(i) {}$/;"	f	class:PIGate
 PIGate	cir/cirGate.h	/^class PIGate : public CirGate {$/;"	c
-PIIDList	cir/cirMgr.h	/^   vector< int > PIIDList;$/;"	m	class:CirMgr
+PIIDList	cir/cirMgr.h	/^   vector< unsigned > PIIDList;$/;"	m	class:CirMgr
 PI_GATE	cir/cirDef.h	/^   PI_GATE    = 1,$/;"	e	enum:GateType
-POGate	cir/cirGate.h	/^    POGate(): CirGate(), _symbolMsg(""), refGateVar(0) {}$/;"	f	class:POGate
-POGate	cir/cirGate.h	/^    POGate(int gid, int refid): CirGate(gid), _symbolMsg( "" ), refGateVar(refid ) {}$/;"	f	class:POGate
+POGate	cir/cirGate.h	/^    POGate(): CirGate(), refGateVar(0) {}$/;"	f	class:POGate
+POGate	cir/cirGate.h	/^    POGate(int gid, int refid): CirGate(gid), refGateVar(refid ) {}$/;"	f	class:POGate
 POGate	cir/cirGate.h	/^class POGate : public CirGate {$/;"	c
-POIDList	cir/cirMgr.h	/^   vector< int > POIDList;$/;"	m	class:CirMgr
+POIDList	cir/cirMgr.h	/^   vector< unsigned > POIDList;$/;"	m	class:CirMgr
 PO_GATE	cir/cirDef.h	/^   PO_GATE    = 2,$/;"	e	enum:GateType
 REDEF_CONST	cir/cirMgr.cpp	/^   REDEF_CONST,$/;"	e	enum:CirParseError	file:
 REDEF_GATE	cir/cirMgr.cpp	/^   REDEF_GATE,$/;"	e	enum:CirParseError	file:
@@ -78,8 +79,8 @@ RandomNumGen	util/rnGen.h	/^class RandomNumGen$/;"	c
 TOT_GATE	cir/cirDef.h	/^   TOT_GATE$/;"	e	enum:GateType
 UNDEF_GATE	cir/cirDef.h	/^   UNDEF_GATE = 0,$/;"	e	enum:GateType
 UTIL_H	util/util.h	9;"	d
-UnDefinedList	cir/cirMgr.h	/^   vector< int > UnDefinedList;$/;"	m	class:CirMgr
-_IsDefined	cir/cirGate.h	/^    bool _IsDefined;$/;"	m	class:AAGate
+UnDefinedList	cir/cirMgr.h	/^   vector< unsigned > UnDefinedList;$/;"	m	class:CirMgr
+_IsDefined	cir/cirGate.h	/^    bool             _IsDefined;$/;"	m	class:CirGate
 _active	cir/cirGate.h	/^    bool             _active;$/;"	m	class:CirGate
 _child	cir/cirGate.h	/^    set<size_t>       _child;$/;"	m	class:CirGate
 _currentMem	util/myUsage.h	/^   double     _currentMem;$/;"	m	class:MyUsage
@@ -90,8 +91,7 @@ _initMem	util/myUsage.h	/^   double     _initMem;$/;"	m	class:MyUsage
 _lineNo	cir/cirGate.h	/^    unsigned         _lineNo;$/;"	m	class:CirGate
 _parent	cir/cirGate.h	/^    size_t            _parent[2];$/;"	m	class:CirGate
 _periodUsedTime	util/myUsage.h	/^   double     _periodUsedTime;$/;"	m	class:MyUsage
-_symbolMsg	cir/cirGate.h	/^    string _symbolMsg;$/;"	m	class:PIGate
-_symbolMsg	cir/cirGate.h	/^    string _symbolMsg;$/;"	m	class:POGate
+_symbolMsg	cir/cirGate.h	/^    string           _symbolMsg;$/;"	m	class:CirGate
 _totalUsedTime	util/myUsage.h	/^   double     _totalUsedTime;$/;"	m	class:MyUsage
 buf	cir/cirMgr.cpp	/^static char buf[1024];$/;"	v	file:
 buildDFSList	cir/cirMgr.cpp	/^CirMgr::buildDFSList() {$/;"	f	class:CirMgr
@@ -101,7 +101,7 @@ clearGate	cir/cirMgr.cpp	/^CirMgr::clearGate() {$/;"	f	class:CirMgr
 clearList	util/util.h	/^void clearList(T& l)$/;"	f
 colNo	cir/cirMgr.cpp	/^static unsigned colNo  = 0;  \/\/ in printing, colNo needs to ++$/;"	v	file:
 curCmd	cir/cirCmd.cpp	/^static CirCmdState curCmd = CIRINIT;$/;"	v	file:
-definedList	cir/cirMgr.h	/^   set<int>  definedList;$/;"	m	class:CirMgr
+definedList	cir/cirMgr.h	/^   set<unsigned>  definedList;$/;"	m	class:CirMgr
 errGate	cir/cirMgr.cpp	/^static CirGate *errGate;$/;"	v	file:
 errInt	cir/cirMgr.cpp	/^static int errInt;$/;"	v	file:
 errMsg	cir/cirMgr.cpp	/^static string errMsg;$/;"	v	file:
@@ -111,7 +111,7 @@ exec	cir/cirCmd.cpp	/^CirReadCmd::exec(const string& option)$/;"	f	class:CirRead
 exec	cir/cirCmd.cpp	/^CirWriteCmd::exec(const string& option)$/;"	f	class:CirWriteCmd
 findChild	cir/cirGate.cpp	/^CirGate::findChild( size_t s ) const{$/;"	f	class:CirGate
 findParent	cir/cirGate.cpp	/^CirGate::findParent( size_t s ) const{$/;"	f	class:CirGate
-getGate	cir/cirMgr.h	/^   CirGate* getGate(unsigned gid) const { return 0; }$/;"	f	class:CirMgr
+getGate	cir/cirMgr.cpp	/^CirMgr::getGate( unsigned gid ) const {$/;"	f	class:CirMgr
 getGateID	cir/cirGate.h	/^    unsigned getGateID() const { return _gateID; }$/;"	f	class:CirGate
 getGateRef	cir/cirGate.h	/^    size_t   getGateRef  ( )          { return _gateDFSRef ; }$/;"	f	class:CirGate
 getHashSize	util/util.cpp	/^size_t getHashSize(size_t s) {$/;"	f
@@ -122,9 +122,12 @@ getNonInv	cir/cirGate.cpp	/^getNonInv( const size_t& s ) {$/;"	f
 getNonInv	cir/cirGate.cpp	/^getNonInv( const void * const ptr ) {$/;"	f
 getPtr	cir/cirGate.cpp	/^getPtr( size_t s ) {$/;"	f
 getRefGateVar	cir/cirGate.h	/^    int            getRefGateVar() const { return refGateVar; }$/;"	f	class:POGate
+getSymbolMsg	cir/cirGate.h	/^    virtual string getSymbolMsg()  const { return ""; }$/;"	f	class:AAGate
+getSymbolMsg	cir/cirGate.h	/^    virtual string getSymbolMsg()  const { return _symbolMsg; }$/;"	f	class:PIGate
+getSymbolMsg	cir/cirGate.h	/^    virtual string getSymbolMsg()  const { return _symbolMsg; }$/;"	f	class:POGate
+getTypeStr	cir/cirGate.h	/^    virtual  string getTypeStr() const { return "PI"; }$/;"	f	class:PIGate
 getTypeStr	cir/cirGate.h	/^    virtual  string getTypeStr() const { return "base"; }$/;"	f	class:CirGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr()    const { return "PO"; }$/;"	f	class:POGate
-getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const { return "PI"; }$/;"	f	class:PIGate
 getTypeStr	cir/cirGate.h	/^    virtual string getTypeStr() const {$/;"	f	class:AAGate
 getXorInv	cir/cirGate.cpp	/^getXorInv( const size_t& s ) {$/;"	f
 getXorInv	cir/cirGate.cpp	/^getXorInv( const void * const ptr ) {$/;"	f
@@ -136,7 +139,7 @@ help	cir/cirCmd.cpp	/^CirWriteCmd::help() const$/;"	f	class:CirWriteCmd
 initCirCmd	cir/cirCmd.cpp	/^initCirCmd()$/;"	f
 insertChild	cir/cirGate.cpp	/^CirGate::insertChild( size_t s) {$/;"	f	class:CirGate
 isActive	cir/cirGate.h	/^    bool     isActive    ()           { return _active; }$/;"	f	class:CirGate
-isDefined	cir/cirGate.h	/^    bool isDefined() const { return _IsDefined; }$/;"	f	class:AAGate
+isDefined	cir/cirGate.h	/^    bool     isDefined   () const     { return _IsDefined; }$/;"	f	class:CirGate
 isInverted	cir/cirGate.cpp	/^isInverted( const int s ) {$/;"	f
 isInverted	cir/cirGate.cpp	/^isInverted( const size_t s ) {$/;"	f
 isInverted	cir/cirGate.cpp	/^isInverted( const unsigned s ) {$/;"	f
@@ -146,7 +149,7 @@ listDir	util/util.cpp	/^int listDir$/;"	f
 main	main/main.cpp	/^main(int argc, char** argv)$/;"	f
 myGetChar	util/myGetChar.cpp	/^char myGetChar()$/;"	f
 myGetChar	util/myGetChar.cpp	/^char myGetChar(istream& istr)$/;"	f
-myPairIntCharCmp	cir/cirMgr.cpp	/^myPairIntCharCmp($/;"	f
+myPairUnsignedCharCmp	cir/cirMgr.cpp	/^myPairUnsignedCharCmp($/;"	f
 myStr2Int	util/myString.cpp	/^myStr2Int(const string& str, int& num)$/;"	f
 myStrGetTok	util/myString.cpp	/^myStrGetTok(const string& str, string& tok, size_t pos = 0,$/;"	f
 myStrNCmp	util/myString.cpp	/^myStrNCmp(const string& s1, const string& s2, unsigned n)$/;"	f
@@ -178,6 +181,9 @@ setDefined	cir/cirGate.h	/^    void setDefined() { _IsDefined = true; }$/;"	f	cl
 setGateRef	cir/cirGate.h	/^    void     setGateRef  ( size_t s ) { _gateDFSRef = s ; }$/;"	f	class:CirGate
 setLineCnt	cir/cirGate.cpp	/^CirGate::setLineCnt( unsigned u){$/;"	f	class:CirGate
 setMemUsage	util/myUsage.h	/^   void setMemUsage() { _currentMem = checkMem() - _initMem; }$/;"	f	class:MyUsage
+setSymbolMsg	cir/cirGate.h	/^    virtual void   setSymbolMsg(const string& str) { _symbolMsg = str ; }$/;"	f	class:PIGate
+setSymbolMsg	cir/cirGate.h	/^    virtual void   setSymbolMsg(const string& str) { _symbolMsg = str ; }$/;"	f	class:POGate
+setSymbolMsg	cir/cirGate.h	/^    virtual void   setSymbolMsg(const string& str) { }$/;"	f	class:AAGate
 setTimeUsage	util/myUsage.h	/^   void setTimeUsage() {$/;"	f	class:MyUsage
 setUNDEF	cir/cirGate.h	/^    void setUNDEF() { _IsDefined = false; }$/;"	f	class:AAGate
 set_keypress	util/myGetChar.cpp	/^static void set_keypress(void)$/;"	f	file:
@@ -188,7 +194,7 @@ usage	cir/cirCmd.cpp	/^CirPrintCmd::usage(ostream& os) const$/;"	f	class:CirPrin
 usage	cir/cirCmd.cpp	/^CirReadCmd::usage(ostream& os) const$/;"	f	class:CirReadCmd
 usage	cir/cirCmd.cpp	/^CirWriteCmd::usage(ostream& os) const$/;"	f	class:CirWriteCmd
 usage	main/main.cpp	/^usage()$/;"	f	file:
-usedList	cir/cirMgr.h	/^   set<int>  usedList;$/;"	m	class:CirMgr
+usedList	cir/cirMgr.h	/^   set<unsigned>  usedList;$/;"	m	class:CirMgr
 writeAag	cir/cirMgr.cpp	/^CirMgr::writeAag(ostream& outfile) const$/;"	f	class:CirMgr
 ~CirGate	cir/cirGate.h	/^    virtual ~CirGate() {}$/;"	f	class:CirGate
 ~CirMgr	cir/cirMgr.h	/^   ~CirMgr() { clearGate();}$/;"	f	class:CirMgr

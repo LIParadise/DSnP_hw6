@@ -158,8 +158,8 @@ CirMgr::readCircuit(const string& fileName)
   fstream myfile;
   myfile.open( fileName, fstream::in );
   string    tmp_str, tmp_str1, tmp_str2;
-  int       ss_pos         = 0;
-  int       PO_start_id    = 0;
+  unsigned  ss_pos         = 0;
+  unsigned  PO_start_id    = 0;
   unsigned  line_count     = 0;
   unsigned  line_count_bak = 0;
   MILOA.reserve(5);
@@ -281,7 +281,7 @@ CirMgr::readCircuit(const string& fileName)
 
   // handle undefined gate
   for_each( GateList.begin(), GateList.end(),
-           [this] ( pair< const int, CirGate* >& p)  {
+           [this] ( pair< const unsigned, CirGate* >& p)  {
              if( p.second == nullptr ){
                auto it = find( UnDefinedList.begin(),
                               UnDefinedList.end(), p.first );
@@ -293,11 +293,10 @@ CirMgr::readCircuit(const string& fileName)
 #endif
                auto ptr = new AAGate( p.first, false);
                p.second = ptr;
-               if( p.first == 0 )
-                 ptr -> setDefined ();
-               // CONST0 is always defined.
              } 
            });
+  // gate CONST0 is always present.
+  GateList.insert( make_pair( 0, new AAGate( 0, true ) ) );
 
   // routing AAG.
   myfile.clear();
@@ -369,7 +368,7 @@ CirMgr::readCircuit(const string& fileName)
 void
 CirMgr::clearGate() {
   for_each( GateList.begin(), GateList.end(), [] 
-           ( pair< const int, CirGate*>& p ) {
+           ( pair< const unsigned, CirGate*>& p ) {
              delete p.second;
              p.second = nullptr;
            });
@@ -444,8 +443,8 @@ CirMgr::printFloatGates() const
 {
   cout << "Gates with floating fanin(s):";
   // TODO, we only stored gates of UnDefinedList...
-  // "set<int> CirGate::_child" contain no inv info.
-  map< int, size_t > tmp_map;
+  // "set<unsigned> CirGate::_child" contain no inv info.
+  map< unsigned, size_t > tmp_map;
   for( auto it : UnDefinedList ){
     CirGate* ptr   = GateList.find( it ) -> second;
     for( auto it1 : ptr -> _child ){
@@ -472,9 +471,9 @@ CirMgr::writeAag(ostream& outfile) const
 }
 
 bool
-myPairIntCharCmp(
-  const pair< int, char >& pair1,
-  const pair< int, char >& pair2 ) {
+myPairUnsignedCharCmp(
+  const pair< unsigned, char >& pair1,
+  const pair< unsigned, char >& pair2 ) {
   return pair1.first < pair2.first ;
 }
 
@@ -487,10 +486,11 @@ CirMgr::buildDFSList() {
       // optional TODO, feedback, i.e. cyclic.
     }
   }
+  return true;
 }
 
 bool 
-CirMgr::DFS( CirGate* ptr , int depth ){
+CirMgr::DFS( CirGate* ptr , unsigned depth ){
   CirGate* tmp  = nullptr;
   bool     flag = true;
   for( size_t i = 0; i < 2; ++i ){
@@ -513,4 +513,16 @@ CirMgr::DFS( CirGate* ptr , int depth ){
   if( ptr -> getTypeStr() != "UNDEF" )
     DFSList.push_back( make_pair(ptr, depth ));
   return true;
+}
+
+CirGate*
+CirMgr::getGate( unsigned gid ) const {
+  auto tmp_pair_itor = GateList.find( gid );
+  if( tmp_pair_itor  != GateList.end() ){
+    if( !(tmp_pair_itor -> second -> isDefined()) )
+      return nullptr;
+    else
+      return tmp_pair_itor -> second;
+  }else
+    return nullptr;
 }

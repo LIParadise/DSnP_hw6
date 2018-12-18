@@ -26,14 +26,17 @@ class CirGate;
 class CirGate
 {
   public:
-    CirGate(): _parent{0}, _active(false), _lineNo(0), _gateID(0), _gateDFSRef(0) {}
-    CirGate(int i) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0) {}
+    CirGate(): _parent{0}, _active(false), _lineNo(0), _gateID(0), _gateDFSRef(0), _IsDefined(true), _symbolMsg("") {}
+    CirGate(int i) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0), _IsDefined(true ), _symbolMsg("") {}
     virtual ~CirGate() {}
 
     // Basic access methods
     virtual  string getTypeStr() const { return "base"; }
     unsigned getLineNo() const { return _lineNo; }
     unsigned getGateID() const { return _gateID; }
+
+    virtual  string getSymbolMsg()                const  = 0;
+    virtual  void   setSymbolMsg( const string& )        = 0;
 
     // Printing functions
     virtual void printGate() const = 0;
@@ -52,6 +55,7 @@ class CirGate
     void     setActive   ( )          { _active = true; }
     void     unsetActive ( )          { _active = false; }
     bool     isActive    ()           { return _active; }
+    bool     isDefined   () const     { return _IsDefined; }
 
     size_t            _parent[2];
     set<size_t>       _child;
@@ -64,44 +68,55 @@ class CirGate
     size_t           _gateDFSRef;
 
   protected:
+    CirGate( int i , bool b) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0), _IsDefined( b ), _symbolMsg("") {}
+    // for AAGate only.
+    bool             _IsDefined;
+    string           _symbolMsg;
 
 };
 
 class POGate : public CirGate {
   public:
-    POGate(): CirGate(), _symbolMsg(""), refGateVar(0) {}
-    POGate(int gid, int refid): CirGate(gid), _symbolMsg( "" ), refGateVar(refid ) {}
+    POGate(): CirGate(), refGateVar(0) {}
+    POGate(int gid, int refid): CirGate(gid), refGateVar(refid ) {}
     virtual string getTypeStr()    const { return "PO"; }
+    virtual string getSymbolMsg()  const { return _symbolMsg; }
+    virtual void   setSymbolMsg(const string& str) { _symbolMsg = str ; }
     int            getRefGateVar() const { return refGateVar; }
-    virtual void printGate() const ;
+    virtual void   printGate() const ;
   private:
-    string _symbolMsg;
     int    refGateVar;
 };
+
+
 class PIGate : public CirGate {
   public:
-    PIGate(): CirGate(), _symbolMsg("") {}
-    PIGate(int i): CirGate(i), _symbolMsg( "" ) {}
-    virtual string getTypeStr() const { return "PI"; }
-    virtual void printGate() const ;
+    PIGate(): CirGate() {}
+    PIGate(int i): CirGate(i) {}
+    virtual  string getTypeStr() const { return "PI"; }
+    virtual  void printGate() const ;
+    virtual string getSymbolMsg()  const { return _symbolMsg; }
+    virtual void   setSymbolMsg(const string& str) { _symbolMsg = str ; }
   private:
-    string _symbolMsg;
 };
+
+
 class AAGate : public CirGate {
   public:
-    AAGate(): CirGate(), _IsDefined(true) {}
-    AAGate(bool boolean): CirGate(), _IsDefined(boolean) {}
-    AAGate(int i, bool boolean) : CirGate(i), _IsDefined( boolean ) {}
+    AAGate(): CirGate(0, true) {}
+    AAGate(bool boolean): CirGate(0, boolean) {}
+    AAGate(int i, bool boolean) : CirGate(i, boolean) {}
     virtual string getTypeStr() const {
-      return (  (_IsDefined)? "AAG" : "UNDEF" );
+      return (  (_IsDefined)? "AIG" : "UNDEF" );
     }
+    virtual string getSymbolMsg()  const { return ""; }
+    virtual void   setSymbolMsg(const string& str) { }
     void setDefined() { _IsDefined = true; }
     void setUNDEF() { _IsDefined = false; }
-    bool isDefined() const { return _IsDefined; }
     virtual void printGate() const ;
   private:
-    bool _IsDefined;
 };
+
 
 size_t   getInvert  ( const size_t& ) ;
 size_t   getNonInv  ( const size_t& ) ;
