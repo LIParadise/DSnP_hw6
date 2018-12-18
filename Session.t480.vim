@@ -38,10 +38,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +195 src/cir/cirGate.cpp
+badd +1 src/cir/cirGate.cpp
 badd +52 src/cir/cirGate.h
 badd +44 src/cir/cirMgr.h
-badd +464 src/cir/cirMgr.cpp
+badd +1 src/cir/cirMgr.cpp
 badd +1 src/cir/cirCmd.cpp
 badd +1 src/cir/cirCmd.h
 badd +1 src/cir/cirDef.h
@@ -182,11 +182,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 110 - ((5 * winheight(0) + 20) / 40)
+let s:l = 153 - ((39 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-110
+153
 normal! 03|
 wincmd w
 argglobal
@@ -565,12 +565,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 314 - ((3 * winheight(0) + 20) / 40)
+let s:l = 383 - ((4 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-314
-normal! 09|
+383
+normal! 011|
 wincmd w
 argglobal
 edit src/cir/cirMgr.h
@@ -805,11 +805,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 4 - ((3 * winheight(0) + 9) / 19)
+let s:l = 566 - ((3 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-4
+566
 normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
@@ -935,12 +935,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 63 - ((25 * winheight(0) + 20) / 40)
+let s:l = 72 - ((34 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-63
-normal! 0
+72
+normal! 028|
 tabedit src/cir/cirCmd.cpp
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -1442,7 +1442,7 @@ exe s:l
 normal! zt
 39
 normal! 0
-tabnext 1
+tabnext 2
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

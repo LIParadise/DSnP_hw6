@@ -414,13 +414,23 @@ CirMgr::readCircuit(const string& fileName)
     getline( myfile, tmp_str );
     output_bak.push_back( tmp_str );
   }
+
+  for_each( DFSList.begin(), DFSList.end(),
+           [this] ( pair< const CirGate*, const unsigned>  p ) {
+             DFSMap.insert( 
+               p.first->getGateID() );
+           } );
+
+
+
   unsigned tmp_AIG_id = 0;
-  for( int i = 0; i < MILOA[3]; ++i ){ // A
+  for( int i = 0; i < MILOA[4]; ++i ){ // A
     getline( myfile, tmp_str );
     output_ss.str( tmp_str );
-    output_ss >> tmp_AIG_id;
-    if( GateList.find( tmp_AIG_id ) != GateList.end() )
-      output_bak.push_back(  tmp_str );
+    output_ss >> tmp_str1;
+    tmp_AIG_id = stoi( tmp_str1, nullptr, 10 )/2;
+    if( DFSMap.find( tmp_AIG_id ) != DFSMap.end() )
+      output_bak.push_back( tmp_str );
   }
 
 
