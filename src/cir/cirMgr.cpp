@@ -392,6 +392,20 @@ CirMgr::clearGate() {
 void
 CirMgr::printSummary() const
 {
+  cout << endl;
+  cout << "  Circuit Statistics" << endl;
+  cout << "  ==================" << endl;
+  ios_base::fmtflags cout_org_flags(cout.flags());
+  cout << "  PI        "  << setw(4) << right << PIIDList.size() << endl;
+  cout.flags( cout_org_flags );
+  cout << "  PO        "  << setw(4) << right << POIDList.size() << endl;
+  cout.flags( cout_org_flags );
+  cout << "  AAG       "  << setw(4) << right << GateList.size()-PIIDList.size()-POIDList.size() << endl;
+  cout.flags( cout_org_flags );
+  cout << "  ==================" << endl;
+  cout << "  Total     "  << setw(4) << right << GateList.size();
+  cout.flags( cout_org_flags );
+  cout << endl;
 }
 
 void
