@@ -30,7 +30,6 @@ set<unsigned>CirGate::_haveMetBefore ( {} );
 void
 CirGate::reportGate() const
 {
-  cout << endl;
   cout << "==================================================" << endl;
   if( getGateID() != 0 )
     cout << "= " << getTypeStr() << '(' << getGateID() << ')' ;
@@ -52,24 +51,32 @@ CirGate::reportFanin(int level) const
 
 void
 CirGate::reportFanin( int total_level, int indent, bool print_exclam ) const {
-  auto tmp_pair = _haveMetBefore . insert( getGateID() );
 
-  if( !( indent < total_level ) )
+  auto itor = _haveMetBefore . find( getGateID() );
+
+  if( !( indent < total_level ) ){
     return;
+  }
+
   for( int i = 0; i < indent*2; ++i )
     cout << ' ';
   if( print_exclam )
     cout << '!';
-  cout << getTypeStr() << ' ' << getGateID();
+  if( getGateID() != 0 )
+    cout << getTypeStr() << ' ' << getGateID();
+  else
+    cout << "CONST 0";
+
+  if( itor != _haveMetBefore.end() ){
+    cout << " (*)";
+    indent = total_level;
+  }
+
+  // don't report further.
   cout << endl;
 
   if( !isDefined() )
     return;
-  // don't report further.
-  if( tmp_pair.second == false ){
-    cout << " (*)";
-    indent = total_level;
-  }
   // don't report further.
 
   if( _parent[0] != 0 ){
@@ -81,6 +88,11 @@ CirGate::reportFanin( int total_level, int indent, bool print_exclam ) const {
     getPtr( _parent[1] ) -> 
       reportFanin( total_level, indent+1,
           (( isInverted( _parent[1] ))? true : false ) );
+  }
+
+  if( indent < total_level 
+      && (_parent[0] != 0 || _parent[1] != 0) ) {
+    _haveMetBefore.insert( getGateID() );
   }
 }
 

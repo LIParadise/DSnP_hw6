@@ -295,8 +295,12 @@ CirMgr::readCircuit(const string& fileName)
                p.second = ptr;
              } 
            });
+
   // gate CONST0 is always present.
-  GateList.insert( make_pair( 0, new AAGate( 0, true ) ) );
+  auto tmp_pair = GateList.insert( make_pair( 0, new AAGate( 0, true ) ) );
+  if( tmp_pair.second == false )
+    reinterpret_cast<AAGate*>
+      (tmp_pair.first->second) -> setDefined() ;
 
   // routing AAG.
   myfile.clear();
