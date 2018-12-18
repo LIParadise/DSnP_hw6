@@ -450,15 +450,18 @@ CirMgr::printFloatGates() const
     CirGate* ptr   = GateList.find( it ) -> second;
     for( auto it1 : ptr -> _child ){
       tmp_map.insert( make_pair( 
-          it1, getPtr( it1 ) -> getGateID() ) );
+          getPtr( it1 ) -> getGateID(), it1 ) );
     }
   }
   for( auto it : tmp_map ){
+    if( it.first != 0)
+      cout << ' ' << it.first;
   }
   cout << endl;
   cout << "Gates defined but not used  :";
   for( auto it : DefButNUsedList ){
-    cout << ' ' << it;
+    if( it != 0)
+      cout << ' ' << it;
   }
   cout << endl;
 }
@@ -497,12 +500,14 @@ CirMgr::DFS( CirGate* ptr , int depth ){
       if( tmp -> getGateRef() != globalDFSRef ){
         tmp -> setGateRef( globalDFSRef );
         tmp -> setActive();
-        DFS( tmp , depth+1);
+        flag = DFS( tmp , depth+1);
         tmp -> unsetActive();
-      }else if( tmp -> isActive() || !flag ){
+      }else if( tmp -> isActive() ){
         // feedback
         return false;
       }
+      if( !flag )
+        return false;
     }
   }
   DFSList.push_back( make_pair(ptr, depth ));
