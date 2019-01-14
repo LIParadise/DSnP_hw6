@@ -182,12 +182,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 96 - ((20 * winheight(0) + 19) / 39)
+let s:l = 99 - ((18 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-96
-normal! 049|
+99
+normal! 0
 wincmd w
 argglobal
 edit src/cir/cirGate.cpp
@@ -302,11 +302,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 142 - ((10 * winheight(0) + 9) / 19)
+let s:l = 143 - ((11 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-142
+143
 normal! 030|
 wincmd w
 argglobal
@@ -429,7 +429,6 @@ normal! zt
 69
 normal! 010|
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 73 + 73) / 146)
 exe '2resize ' . ((&lines * 19 + 21) / 42)
 exe 'vert 2resize ' . ((&columns * 72 + 73) / 146)
@@ -566,11 +565,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 227 - ((7 * winheight(0) + 19) / 39)
+let s:l = 167 - ((15 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-227
+167
 normal! 0
 wincmd w
 argglobal
@@ -806,12 +805,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 490 - ((7 * winheight(0) + 9) / 19)
+let s:l = 156 - ((4 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-490
-normal! 031|
+156
+normal! 09|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 72 + 73) / 146)
 exe '2resize ' . ((&lines * 19 + 21) / 42)
@@ -1443,7 +1442,7 @@ exe s:l
 normal! zt
 39
 normal! 0
-tabnext 1
+tabnext 2
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
