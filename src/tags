@@ -32,7 +32,6 @@ CirReadCmd	cir/cirCmd.h	/^CmdClass(CirReadCmd);$/;"	v
 CirWriteCmd	cir/cirCmd.h	/^CmdClass(CirWriteCmd);$/;"	v
 DFS	cir/cirMgr.cpp	/^CirMgr::DFS( CirGate* ptr , unsigned depth ){$/;"	f	class:CirMgr
 DFSList	cir/cirMgr.h	/^   vector< pair<CirGate*, unsigned> > DFSList;$/;"	m	class:CirMgr
-DFSSet	cir/cirMgr.h	/^   set<unsigned>                      DFSSet;$/;"	m	class:CirMgr
 DUMMY_END	cir/cirMgr.cpp	/^   DUMMY_END$/;"	e	enum:CirParseError	file:
 DefButNUsedList	cir/cirMgr.h	/^   vector< unsigned > DefButNUsedList;$/;"	m	class:CirMgr
 EXTRA_SPACE	cir/cirMgr.cpp	/^   EXTRA_SPACE,$/;"	e	enum:CirParseError	file:
