@@ -19,7 +19,7 @@ CIR_GATE_H	cir/cirGate.h	10;"	d
 CIR_MGR_H	cir/cirMgr.h	10;"	d
 CONST_GATE	cir/cirDef.h	/^   CONST_GATE = 4,$/;"	e	enum:GateType
 CirCmdState	cir/cirCmd.cpp	/^enum CirCmdState$/;"	g	file:
-CirGate	cir/cirGate.h	/^    CirGate( int i , bool b) : _parent{0}, _active(false), _lineNo(0), _gateID(i), _gateDFSRef(0), _IsDefined( b ), _symbolMsg("") {}$/;"	f	class:CirGate
+CirGate	cir/cirGate.h	/^    CirGate( int i , bool b) :$/;"	f	class:CirGate
 CirGate	cir/cirGate.h	/^    CirGate(): $/;"	f	class:CirGate
 CirGate	cir/cirGate.h	/^    CirGate(int i) : $/;"	f	class:CirGate
 CirGate	cir/cirGate.h	/^class CirGate$/;"	c
@@ -65,8 +65,8 @@ PIGate	cir/cirGate.h	/^    PIGate(int i): CirGate(i) {}$/;"	f	class:PIGate
 PIGate	cir/cirGate.h	/^class PIGate : public CirGate {$/;"	c
 PIIDList	cir/cirMgr.h	/^   vector< unsigned > PIIDList;$/;"	m	class:CirMgr
 PI_GATE	cir/cirDef.h	/^   PI_GATE    = 1,$/;"	e	enum:GateType
-POGate	cir/cirGate.h	/^    POGate(): CirGate(), refGateVar(0) {}$/;"	f	class:POGate
-POGate	cir/cirGate.h	/^    POGate(int gid, int refid): CirGate(gid), refGateVar(refid ) {}$/;"	f	class:POGate
+POGate	cir/cirGate.h	/^    POGate(): $/;"	f	class:POGate
+POGate	cir/cirGate.h	/^    POGate(int gid, int refid): $/;"	f	class:POGate
 POGate	cir/cirGate.h	/^class POGate : public CirGate {$/;"	c
 POIDList	cir/cirMgr.h	/^   vector< unsigned > POIDList;$/;"	m	class:CirMgr
 PO_GATE	cir/cirDef.h	/^   PO_GATE    = 2,$/;"	e	enum:GateType
