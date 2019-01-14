@@ -492,7 +492,8 @@ CirMgr::printSummary() const
   // minus 1, acting as offset for "CONST 0"
   cout.flags( cout_org_flags );
   cout << "  ==================" << endl;
-  cout << "  Total     "  << setw(4) << right << GateList.size();
+  cout << "  Total     "  << setw(4) << right << GateList.size()-1;
+  // minus 1, acting as offset for "CONST 0"
   cout.flags( cout_org_flags );
   cout << endl;
 }
