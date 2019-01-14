@@ -395,11 +395,11 @@ CirMgr::readCircuit(const string& fileName)
   stringstream output_ss;
 
   output_bak . push_back ( "" );
-  output_bak[0] = "aag " + to_string( MILOA[0] ) + ' '
-    + to_string( MILOA[1] ) + ' '
-    + to_string( MILOA[2] ) + ' '
-    + to_string( MILOA[3] ) + ' '
-    + to_string( MILOA[4] );
+  output_bak[0] = "aag " + to_string(GateList.size()-1) + ' '
+    +to_string( MILOA[1] ) + ' '
+    +to_string( 0 )        + ' '
+    +to_string( MILOA[3] ) + ' '
+    +to_string( GateList.size()-PIIDList.size()-POIDList.size()-1 );
 
   for( int i = 0; i < MILOA[1]; ++i ){ // I
     getline( myfile, tmp_str );
@@ -416,20 +416,36 @@ CirMgr::readCircuit(const string& fileName)
 
   for_each( DFSList.begin(), DFSList.end(),
            [this] ( pair< const CirGate*, const unsigned>  p ) {
-             DFSMap.insert( 
+             DFSSet.insert( 
                p.first->getGateID() );
            } );
 
-
-
   unsigned tmp_AIG_id = 0;
-  for( int i = 0; i < MILOA[4]; ++i ){ // A
-    getline( myfile, tmp_str );
-    output_ss.str( tmp_str );
-    output_ss >> tmp_str1;
-    tmp_AIG_id = stoi( tmp_str1, nullptr, 10 )/2;
-    if( DFSMap.find( tmp_AIG_id ) != DFSMap.end() )
-      output_bak.push_back( tmp_str );
+  for( auto it : DFSList ) {
+    tmp_str =  "";
+    tmp_str += to_string (it.first -> getGateID() * 2 );
+    tmp_str += ' ';
+
+    size_t parent_0_id = 0;
+    size_t parent_1_id = 0;
+
+    if( isInverted( it.first -> _parent[0] ) )
+      parent_0_id = reinterpret_cast<CirGate*>(
+        it.first -> _parent[0]) -> getGateID() * 2 + 1;
+    else
+      parent_0_id = reinterpret_cast<CirGate*>(
+        it.first -> _parent[0]) -> getGateID() * 2;
+
+    if( isInverted( it.first -> _parent[1] ) )
+      parent_1_id = reinterpret_cast<CirGate*>(
+        it.first -> _parent[1]) -> getGateID() * 2 + 1;
+    else
+      parent_1_id = reinterpret_cast<CirGate*>(
+        it.first -> _parent[1]) -> getGateID() * 2;
+
+    tmp_str += to_string( parent_0_id );
+    tmp_str += ' ';
+    tmp_str += to_string( parent_1_id );
   }
 
 
@@ -487,7 +503,7 @@ CirMgr::printSummary() const
   cout.flags( cout_org_flags );
   cout << "  PO        "  << setw(4) << right << POIDList.size() << endl;
   cout.flags( cout_org_flags );
-  cout << "  AAG       "  << setw(4) << right << GateList.size()-PIIDList.size()-POIDList.size()-1 << endl;
+  cout << "  AIG       "  << setw(4) << right << GateList.size()-PIIDList.size()-POIDList.size()-1 << endl;
   // minus 1, acting as offset for "CONST 0"
   cout.flags( cout_org_flags );
   cout << "  ==================" << endl;
