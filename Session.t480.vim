@@ -51,7 +51,7 @@ argglobal
 silent! argdel *
 argadd src/cir/cirGate.cpp
 set stal=2
-edit src/cir/cirGate.cpp
+edit src/cir/cirGate.h
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -65,11 +65,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
-exe '2resize ' . ((&lines * 20 + 21) / 43)
-exe 'vert 2resize ' . ((&columns * 79 + 79) / 159)
-exe '3resize ' . ((&lines * 19 + 21) / 43)
-exe 'vert 3resize ' . ((&columns * 79 + 79) / 159)
+exe 'vert 1resize ' . ((&columns * 73 + 73) / 146)
+exe '2resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 2resize ' . ((&columns * 72 + 73) / 146)
+exe '3resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 3resize ' . ((&columns * 72 + 73) / 146)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -182,15 +182,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 153 - ((39 * winheight(0) + 20) / 40)
+let s:l = 122 - ((19 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-153
-normal! 03|
+122
+normal! 011|
 wincmd w
 argglobal
-edit src/cir/cirGate.h
+edit src/cir/cirGate.cpp
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -302,12 +302,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 55 - ((12 * winheight(0) + 10) / 20)
+let s:l = 29 - ((14 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-55
-normal! 010|
+29
+normal! 03|
 wincmd w
 argglobal
 edit src/cir/cirGate.cpp
@@ -429,11 +429,11 @@ normal! zt
 202
 normal! 06|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
-exe '2resize ' . ((&lines * 20 + 21) / 43)
-exe 'vert 2resize ' . ((&columns * 79 + 79) / 159)
-exe '3resize ' . ((&lines * 19 + 21) / 43)
-exe 'vert 3resize ' . ((&columns * 79 + 79) / 159)
+exe 'vert 1resize ' . ((&columns * 73 + 73) / 146)
+exe '2resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 2resize ' . ((&columns * 72 + 73) / 146)
+exe '3resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 3resize ' . ((&columns * 72 + 73) / 146)
 tabedit src/cir/cirMgr.cpp
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -448,11 +448,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
-exe '2resize ' . ((&lines * 20 + 21) / 43)
-exe 'vert 2resize ' . ((&columns * 79 + 79) / 159)
-exe '3resize ' . ((&lines * 19 + 21) / 43)
-exe 'vert 3resize ' . ((&columns * 79 + 79) / 159)
+exe 'vert 1resize ' . ((&columns * 72 + 73) / 146)
+exe '2resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 2resize ' . ((&columns * 73 + 73) / 146)
+exe '3resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 3resize ' . ((&columns * 73 + 73) / 146)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -565,12 +565,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 383 - ((4 * winheight(0) + 20) / 40)
+let s:l = 240 - ((17 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-383
-normal! 011|
+240
+normal! 024|
 wincmd w
 argglobal
 edit src/cir/cirMgr.h
@@ -685,7 +685,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 56 - ((19 * winheight(0) + 10) / 20)
+let s:l = 56 - ((18 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -805,18 +805,18 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 566 - ((3 * winheight(0) + 9) / 19)
+let s:l = 240 - ((9 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-566
-normal! 0
+240
+normal! 026|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
-exe '2resize ' . ((&lines * 20 + 21) / 43)
-exe 'vert 2resize ' . ((&columns * 79 + 79) / 159)
-exe '3resize ' . ((&lines * 19 + 21) / 43)
-exe 'vert 3resize ' . ((&columns * 79 + 79) / 159)
+exe 'vert 1resize ' . ((&columns * 72 + 73) / 146)
+exe '2resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 2resize ' . ((&columns * 73 + 73) / 146)
+exe '3resize ' . ((&lines * 19 + 21) / 42)
+exe 'vert 3resize ' . ((&columns * 73 + 73) / 146)
 tabedit src/cir/cirMgr.h
 set splitbelow splitright
 set nosplitbelow
@@ -935,7 +935,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 72 - ((34 * winheight(0) + 20) / 40)
+let s:l = 72 - ((33 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -951,8 +951,8 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
-exe 'vert 2resize ' . ((&columns * 79 + 79) / 159)
+exe 'vert 1resize ' . ((&columns * 72 + 73) / 146)
+exe 'vert 2resize ' . ((&columns * 73 + 73) / 146)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -1065,7 +1065,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 228 - ((36 * winheight(0) + 20) / 40)
+let s:l = 228 - ((33 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1185,15 +1185,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 6 - ((5 * winheight(0) + 20) / 40)
+let s:l = 6 - ((5 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 6
 normal! 0
 wincmd w
-exe 'vert 1resize ' . ((&columns * 79 + 79) / 159)
-exe 'vert 2resize ' . ((&columns * 79 + 79) / 159)
+exe 'vert 1resize ' . ((&columns * 72 + 73) / 146)
+exe 'vert 2resize ' . ((&columns * 73 + 73) / 146)
 tabedit src/cir/cirDef.h
 set splitbelow splitright
 set nosplitbelow
@@ -1312,7 +1312,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 17 - ((16 * winheight(0) + 20) / 40)
+let s:l = 17 - ((16 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1436,13 +1436,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 39 - ((26 * winheight(0) + 20) / 40)
+let s:l = 39 - ((25 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 39
 normal! 0
-tabnext 2
+tabnext 1
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
